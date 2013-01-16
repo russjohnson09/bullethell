@@ -30,7 +30,7 @@ public class EnemyImp implements Enemy {
 	public EnemyImp() {
 		health = 10;
 		x = 0;
-		y = 10;
+		y = 5;
 		r = 1;
 		texture = Textures.ENEMY01;
 
@@ -55,7 +55,7 @@ public class EnemyImp implements Enemy {
 
 	@Override
 	public void update(float delta) {
-		x += MOVEMENT;
+		x += MOVEMENT * delta;
 		delay -= delta;
 
 		if (delay < 0) {
@@ -106,6 +106,10 @@ public class EnemyImp implements Enemy {
 
 	public static Array<Bullet> getBullets() {
 		return bullets;
+	}
+
+	public String toString() {
+		return String.format("x: %.2f\ty: %.2f", x, y);
 	}
 
 }

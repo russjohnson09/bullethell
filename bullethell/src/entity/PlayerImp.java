@@ -24,7 +24,7 @@ public class PlayerImp implements Player {
 	// if greater than zero player is invincible
 	private float invincible;
 	// players bullets
-	private Array<Bullet> bullets;
+	private Array<Bullet> bullets = new Array<Bullet>();
 
 	private static Array<Entity> list = new Array<Entity>();
 
@@ -79,7 +79,7 @@ public class PlayerImp implements Player {
 
 	private void updateBullets(float delta) {
 		Bullet bullet;
-		for (int i = bullets.size; i >= 0; i--) {
+		for (int i = bullets.size - 1; i >= 0; i--) {
 			bullet = bullets.get(i);
 			if (bullet.isFin()) {
 				bullets.removeIndex(i);
@@ -158,6 +158,10 @@ public class PlayerImp implements Player {
 	@Override
 	public Array<Bullet> getBullets() {
 		return bullets;
+	}
+
+	public String toString() {
+		return String.format("x: %.2f\ty: %.2f", x, y);
 	}
 
 }

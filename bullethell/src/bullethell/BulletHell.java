@@ -6,8 +6,8 @@ public class BulletHell extends Game {
 
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
-		
+		setScreen(new GameScreen());
+
 	}
 
 }

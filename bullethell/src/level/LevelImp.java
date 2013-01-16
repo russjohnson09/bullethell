@@ -2,10 +2,12 @@ package level;
 
 import utils.LinkedList;
 import utils.LinkedListImp;
+import utils.NodeImp;
 
 import com.badlogic.gdx.utils.Array;
 
 import entity.Enemy;
+import entity.EnemyImp;
 
 /**
  * Basic implementation of Level. Makes a few things to test.
@@ -16,13 +18,13 @@ import entity.Enemy;
 public class LevelImp implements Level {
 
 	// the linkedlist contains all actions to be performed.
-	private LinkedList enemyScript;
+	private LinkedList enemyScript = new LinkedListImp();
 	private boolean isFin = false;
 	// Array of active enemies
-	private Array<Enemy> enemies;
+	private Array<Enemy> enemies = new Array<Enemy>();
 
 	public LevelImp() {
-		enemyScript = new LinkedListImp();
+		enemyScript.add(new NodeImp(new EnemyImp(), 1));
 
 	}
 
@@ -42,7 +44,7 @@ public class LevelImp implements Level {
 	}
 
 	private void updateEnemies(float delta) {
-		for (int i = enemies.size; i >= 0; i--) {
+		for (int i = enemies.size - 1; i >= 0; i--) {
 			Enemy enemy = enemies.get(i);
 			enemy.update(delta);
 			if (enemy.isFin())
@@ -59,6 +61,14 @@ public class LevelImp implements Level {
 	@Override
 	public boolean getIsFin() {
 		return isFin;
+	}
+
+	public String toString() {
+		String str = "";
+		for (Enemy enemy : enemies) {
+			str += enemy;
+		}
+		return str + enemies.size;
 	}
 
 }

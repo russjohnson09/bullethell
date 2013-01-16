@@ -13,11 +13,12 @@ import entity.PlayerImp;
 public class WorldImp implements World {
 
 	private Level level;
-	private Renderer render;
+	private Renderer renderer;
 	private Player player = new PlayerImp();
 
-	public WorldImp() {
-		level = new Level01();
+	public WorldImp(Renderer renderer) {
+		level = new LevelImp();
+		this.renderer = renderer;
 
 	}
 
@@ -30,6 +31,7 @@ public class WorldImp implements World {
 		checkEnemyCollision();
 		player.update(delta);
 		level.update(delta);
+		render();
 
 	}
 
@@ -81,33 +83,42 @@ public class WorldImp implements World {
 
 	private void renderEnemyBullet() {
 		for (Bullet bullet : EnemyImp.getBullets()) {
-			// TODO
+			renderer.render(bullet);
 		}
 
 	}
 
 	private void renderPlayerBullet() {
 		for (Bullet bullet : player.getBullets()) {
-			// TODO
+			renderer.render(bullet);
 		}
 
 	}
 
 	private void renderEnemy() {
 		for (Enemy enemy : level.getEnemies()) {
-			// TODO
+			renderer.render(enemy);
 		}
 
 	}
 
 	private void renderPlayer() {
-		// TODO
+		renderer.render(player);
 
 	}
 
 	private boolean isCollision(float x, float y, float r, float x2, float y2,
 			float r2) {
 		return Math.pow(x - x2, 2) + Math.pow(y - y2, 2) < Math.pow(r + r2, 2);
+	}
+
+	public String toString() {
+		String str = "";
+		str += "Player: ";
+		str += player;
+		str += "\nLevel: ";
+		str += level;
+		return str;
 	}
 
 }

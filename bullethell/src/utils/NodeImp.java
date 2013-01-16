@@ -14,7 +14,7 @@ public class NodeImp implements Node {
 	private Node next;
 	private float delay;
 
-	NodeImp(Entity entity, float delay) {
+	public NodeImp(Entity entity, float delay) {
 		this.entity = entity;
 		this.delay = delay;
 	}
