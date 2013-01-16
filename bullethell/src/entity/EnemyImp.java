@@ -15,14 +15,17 @@ import com.badlogic.gdx.utils.Array;
 public class EnemyImp implements Enemy {
 
 	public static final float MOVEMENT = 1;
-	public static final float BOUNDARY = 10;
+	public static final float BOUNDARY = 20;
+	private final float DELAY = 1;
+	private float delay;
+
+	private static Array<Bullet> bullets = new Array<Bullet>();
 
 	private int health;
 	private float x;
 	private float y;
 	private float r;
 	private Texture texture;
-	private static Array<Entity> list = new Array<Entity>();
 
 	public EnemyImp() {
 		health = 10;
@@ -30,6 +33,8 @@ public class EnemyImp implements Enemy {
 		y = 10;
 		r = 1;
 		texture = Textures.ENEMY01;
+
+		delay = 0.5f;
 
 	}
 
@@ -51,7 +56,26 @@ public class EnemyImp implements Enemy {
 	@Override
 	public void update(float delta) {
 		x += MOVEMENT;
+		delay -= delta;
 
+		if (delay < 0) {
+			bullets.add(new BulletImp(x, y));
+			delay = DELAY;
+		}
+
+		updateBullets(delta);
+
+	}
+
+	private void updateBullets(float delta) {
+		Bullet bullet;
+		for (int i = bullets.size - 1; i >= 0; i--) {
+			bullet = bullets.get(i);
+			bullet.update(delta);
+			if (bullet.isFin()) {
+				bullets.removeIndex(i);
+			}
+		}
 	}
 
 	@Override
@@ -70,17 +94,6 @@ public class EnemyImp implements Enemy {
 	}
 
 	@Override
-	public Array<Entity> getList() {
-		return list;
-	}
-
-	@Override
-	public void add(Entity entity) {
-		list.add(entity);
-
-	}
-
-	@Override
 	public float getR() {
 		return r;
 	}
@@ -89,6 +102,10 @@ public class EnemyImp implements Enemy {
 	public void decrementHealth() {
 		health--;
 
+	}
+
+	public static Array<Bullet> getBullets() {
+		return bullets;
 	}
 
 }

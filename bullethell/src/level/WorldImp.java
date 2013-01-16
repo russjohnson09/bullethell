@@ -4,8 +4,9 @@ import render.Renderer;
 
 import com.badlogic.gdx.utils.Array;
 
+import entity.Bullet;
 import entity.Enemy;
-import entity.Entity;
+import entity.EnemyImp;
 import entity.Player;
 import entity.PlayerImp;
 
@@ -14,9 +15,6 @@ public class WorldImp implements World {
 	private Level level;
 	private Renderer render;
 	private Player player = new PlayerImp();
-	private Array<Entity> enemyBullets;
-	private Array<Entity> playerBullets;
-	private Array<Entity> enemies;
 
 	public WorldImp() {
 		level = new Level01();
@@ -40,11 +38,16 @@ public class WorldImp implements World {
 	 * if collision takes place.
 	 */
 	private void checkEnemyCollision() {
-		for (Entity enemy : enemies) {
-			for (Entity bullet : playerBullets) {
+		Array<Enemy> enemies = level.getEnemies();
+		Array<Bullet> bullets = player.getBullets();
+		Bullet bullet;
+		for (Enemy enemy : enemies) {
+			for (int i = bullets.size - 1; i >= 0; i--) {
+				bullet = bullets.get(i);
 				if (isCollision(enemy.getX(), enemy.getY(), enemy.getR(),
 						bullet.getX(), bullet.getY(), bullet.getR())) {
-					((Enemy) enemy).decrementHealth();
+					enemy.decrementHealth();
+					bullets.removeIndex(i);
 				}
 			}
 		}
@@ -52,10 +55,14 @@ public class WorldImp implements World {
 	}
 
 	private void checkPlayerCollision() {
-		for (Entity bullet : enemyBullets) {
+		Array<Bullet> bullets = EnemyImp.getBullets();
+		Bullet bullet;
+		for (int i = bullets.size - 1; i >= 0; i--) {
+			bullet = bullets.get(i);
 			if (isCollision(player.getX(), player.getY(), player.getR(),
 					bullet.getX(), bullet.getY(), bullet.getR())) {
 				player.decrementHealth();
+				bullets.removeIndex(i);
 			}
 		}
 
@@ -71,22 +78,28 @@ public class WorldImp implements World {
 	}
 
 	private void renderEnemyBullet() {
-		// TODO Auto-generated method stub
+		for (Bullet bullet : EnemyImp.getBullets()) {
+			// TODO
+		}
 
 	}
 
 	private void renderPlayerBullet() {
-		// TODO Auto-generated method stub
+		for (Bullet bullet : player.getBullets()) {
+			// TODO
+		}
 
 	}
 
 	private void renderEnemy() {
-		// TODO Auto-generated method stub
+		for (Enemy enemy : level.getEnemies()) {
+			// TODO
+		}
 
 	}
 
 	private void renderPlayer() {
-		// TODO Auto-generated method stub
+		// TODO
 
 	}
 

@@ -1,5 +1,6 @@
 package utils;
 
+import entity.Entity;
 
 /**
  * Implementation of LinkedList
@@ -12,20 +13,26 @@ public class LinkedListImp implements LinkedList {
 	Node head;
 	Node tail;
 
-	LinkedListImp() {
+	public LinkedListImp() {
 		head = null;
 		tail = null;
 	}
 
 	/**
-	 * Updates the linked list.
+	 * Updates the linked list returning an entity if it is time to spawn it and
+	 * null if we are doing nothing.
 	 */
 	@Override
-	public void update(float delta) {
+	public Entity update(float delta) {
 		head.update(delta);
 
-		if (head.getDelay() < 0)
+		if (head.getDelay() < 0) {
+			Entity entity = head.getEntity();
 			move();
+			return entity;
+		}
+
+		return null;
 
 	}
 

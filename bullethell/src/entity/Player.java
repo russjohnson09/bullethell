@@ -2,6 +2,8 @@ package entity;
 
 import states.PosNegZero;
 
+import com.badlogic.gdx.utils.Array;
+
 public interface Player extends Entity, Viewable, Killable, Invincible {
 
 	PosNegZero getStateX();
@@ -15,5 +17,7 @@ public interface Player extends Entity, Viewable, Killable, Invincible {
 	int getLives();
 
 	void decrementHealth();
+
+	Array<Bullet> getBullets();
 
 }

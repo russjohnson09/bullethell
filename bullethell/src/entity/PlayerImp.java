@@ -22,6 +22,8 @@ public class PlayerImp implements Player {
 	private int health;
 	private int lives;
 	private float invincible;
+	// players bullets
+	private Array<Bullet> bullets;
 
 	private static Array<Entity> list = new Array<Entity>();
 
@@ -55,6 +57,7 @@ public class PlayerImp implements Player {
 
 	@Override
 	public void update(float delta) {
+		updateBullets(delta);
 		invincible -= delta;
 		if (stateX == PosNegZero.POS && x < BOUNDARY)
 			x += MOVEMENT * delta;
@@ -69,6 +72,17 @@ public class PlayerImp implements Player {
 		if (health < 0) {
 			health = HEALTH;
 			lives--;
+		}
+
+	}
+
+	private void updateBullets(float delta) {
+		Bullet bullet;
+		for (int i = bullets.size; i >= 0; i--) {
+			bullet = bullets.get(i);
+			if (bullet.isFin()) {
+				bullets.removeIndex(i);
+			}
 		}
 
 	}
@@ -136,19 +150,13 @@ public class PlayerImp implements Player {
 	}
 
 	@Override
-	public Array<Entity> getList() {
-		return list;
-	}
-
-	@Override
-	public void add(Entity entity) {
-		list.add(entity);
-
-	}
-
-	@Override
 	public float getR() {
 		return r;
+	}
+
+	@Override
+	public Array<Bullet> getBullets() {
+		return bullets;
 	}
 
 }

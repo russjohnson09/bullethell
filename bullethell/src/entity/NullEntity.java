@@ -1,7 +1,6 @@
 package entity;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.Array;
 
 /**
  * A null entity that acts as a delay.
@@ -51,18 +50,6 @@ public class NullEntity implements Entity {
 	@Override
 	public void update(float delta) {
 		delay -= delta;
-
-	}
-
-	@Override
-	public Array<Entity> getList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void add(Entity entity) {
-		// TODO Auto-generated method stub
 
 	}
 

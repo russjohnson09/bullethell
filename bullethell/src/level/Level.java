@@ -1,15 +1,22 @@
 package level;
 
-import java.util.ArrayList;
+import com.badlogic.gdx.utils.Array;
 
-import utils.LinkedList;
+import entity.Enemy;
 import entity.Updateable;
 
 public interface Level extends Updateable {
 
 	/**
 	 * 
-	 * @return all of the linked lists representing actions.
+	 * @return the enemies
 	 */
-	ArrayList<LinkedList> getActions();
+	Array<Enemy> getEnemies();
+
+	/**
+	 * 
+	 * @return
+	 */
+	boolean getIsFin();
+
 }

@@ -1,6 +1,5 @@
 package entity;
 
-import com.badlogic.gdx.utils.Array;
 
 /**
  * An Entity is the most basic element in the game.
@@ -34,16 +33,5 @@ public interface Entity extends Updateable, Viewable {
 	 * @return radius of object
 	 */
 	float getR();
-
-	/**
-	 * 
-	 * @return array of entities that are in action
-	 */
-	Array<Entity> getList();
-
-	/**
-	 * Adds to the array of entities in action.
-	 */
-	void add(Entity entity);
 
 }

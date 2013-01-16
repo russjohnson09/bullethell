@@ -1,33 +1,64 @@
 package level;
 
-import java.util.ArrayList;
-
 import utils.LinkedList;
-import entity.Entity;
+import utils.LinkedListImp;
+
+import com.badlogic.gdx.utils.Array;
+
+import entity.Enemy;
 
 /**
- * Basic implementation of Level.
+ * Basic implementation of Level. Makes a few things to test.
  * 
  * @author russ
  * 
  */
 public class LevelImp implements Level {
 
-	private ArrayList<LinkedList> actions;
+	// the linkedlist contains all actions to be performed.
+	private LinkedList enemyScript;
+	private boolean isFin = false;
+	// Array of active enemies
+	private Array<Enemy> enemies;
 
-	@Override
-	public ArrayList<LinkedList> getActions() {
-		return actions;
+	public LevelImp() {
+		enemyScript = new LinkedListImp();
+
 	}
 
 	@Override
 	public void update(float delta) {
-		for (LinkedList l : actions) {
-			l.update(delta);
-			Entity e = l.getCurrent().getEntity();
-			e.update(delta);
+		if (enemyScript.isEmpty())
+			isFin = true;
+		else {
+			Enemy enemy = (Enemy) enemyScript.update(delta);
+			if (enemy != null) {
+				enemies.add(enemy);
+			}
 		}
 
+		updateEnemies(delta);
+
+	}
+
+	private void updateEnemies(float delta) {
+		for (int i = enemies.size; i >= 0; i--) {
+			Enemy enemy = enemies.get(i);
+			enemy.update(delta);
+			if (enemy.isFin())
+				enemies.removeIndex(i);
+		}
+
+	}
+
+	@Override
+	public Array<Enemy> getEnemies() {
+		return enemies;
+	}
+
+	@Override
+	public boolean getIsFin() {
+		return isFin;
 	}
 
 }
