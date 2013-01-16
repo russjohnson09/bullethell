@@ -1,7 +1,6 @@
 package level;
 
 import entity.Updateable;
-import utils.LinkedList;
 
 /**
  * Interface for the world that contains all of the entities of the game as well
@@ -11,10 +10,6 @@ import utils.LinkedList;
  */
 public interface World extends Updateable {
 
-	/**
-	 * 
-	 * @return list of entities to be rendered
-	 */
-	LinkedList getEntities();
+	void render();
 
 }

@@ -3,6 +3,7 @@ package entity;
 import states.PosNegZero;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 
 public class PlayerImp implements Player {
 
@@ -22,9 +23,12 @@ public class PlayerImp implements Player {
 	private int lives;
 	private float invincible;
 
-	PlayerImp() {
+	private static Array<Entity> list = new Array<Entity>();
+
+	public PlayerImp() {
 		x = 5;
 		y = 2;
+		r = 1;
 		stateX = PosNegZero.ZERO;
 		stateY = PosNegZero.ZERO;
 		timeTilFire = 10;
@@ -129,6 +133,22 @@ public class PlayerImp implements Player {
 	public void decrementHealth() {
 		health--;
 
+	}
+
+	@Override
+	public Array<Entity> getList() {
+		return list;
+	}
+
+	@Override
+	public void add(Entity entity) {
+		list.add(entity);
+
+	}
+
+	@Override
+	public float getR() {
+		return r;
 	}
 
 }

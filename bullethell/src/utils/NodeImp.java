@@ -10,8 +10,14 @@ import entity.Entity;
  */
 public class NodeImp implements Node {
 
-	Entity entity;
-	Node next;
+	private Entity entity;
+	private Node next;
+	private float delay;
+
+	NodeImp(Entity entity, float delay) {
+		this.entity = entity;
+		this.delay = delay;
+	}
 
 	@Override
 	public Entity getEntity() {
@@ -27,6 +33,20 @@ public class NodeImp implements Node {
 	public void setNext(Node node) {
 		next = node;
 
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void update(float delta) {
+		delay -= delta;
+
+	}
+
+	@Override
+	public float getDelay() {
+		return delay;
 	}
 
 }

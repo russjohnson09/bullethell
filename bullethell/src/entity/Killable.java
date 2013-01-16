@@ -11,6 +11,11 @@ public interface Killable {
 	float getHealth();
 
 	/**
+	 * Decrease health.
+	 */
+	void decrementHealth();
+
+	/**
 	 * 
 	 * @return radius of hitbox
 	 */

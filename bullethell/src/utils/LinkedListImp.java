@@ -1,6 +1,5 @@
 package utils;
 
-import entity.Entity;
 
 /**
  * Implementation of LinkedList
@@ -23,12 +22,9 @@ public class LinkedListImp implements LinkedList {
 	 */
 	@Override
 	public void update(float delta) {
-		Entity entity = head.getEntity();
-		entity.update(delta);
+		head.update(delta);
 
-		// if the current entity is finished being executed
-		// move to the next entity
-		if (entity.isFin())
+		if (head.getDelay() < 0)
 			move();
 
 	}

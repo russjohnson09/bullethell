@@ -1,14 +1,15 @@
 package utils;
 
 import entity.Entity;
+import entity.Updateable;
 
 /**
- * A Node containing entities.
+ * An updateable Node.
  * 
  * @author russ
  * 
  */
-public interface Node {
+public interface Node extends Updateable {
 
 	/**
 	 * 
@@ -25,5 +26,11 @@ public interface Node {
 	 * Set node being pointed to.
 	 */
 	void setNext(Node node);
+
+	/**
+	 * 
+	 * @return the delay
+	 */
+	float getDelay();
 
 }
