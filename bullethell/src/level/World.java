@@ -1,5 +1,6 @@
-package entity;
+package level;
 
+import entity.Updateable;
 import utils.LinkedList;
 
 /**

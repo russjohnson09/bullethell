@@ -3,8 +3,9 @@ package level;
 import java.util.ArrayList;
 
 import utils.LinkedList;
+import entity.Updateable;
 
-public interface Level {
+public interface Level extends Updateable {
 
 	/**
 	 * 
