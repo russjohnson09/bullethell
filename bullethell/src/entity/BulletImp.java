@@ -5,7 +5,7 @@ import utils.Textures;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * Basic implementation of bullet goes upwards from (x,y)
+ * Basic implementation of bullet goes down from (x,y)
  * 
  * @author russ
  * 
@@ -41,32 +41,32 @@ public class BulletImp implements Bullet {
 
 	@Override
 	public float getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return x;
 	}
 
 	@Override
 	public float getY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return y;
 	}
 
 	@Override
 	public float getR() {
-		// TODO Auto-generated method stub
-		return 0;
+		return r;
 	}
 
 	@Override
 	public void update(float delta) {
-		// TODO Auto-generated method stub
+		y -= MOVEMENT * delta;
 
 	}
 
 	@Override
 	public Texture getTexture() {
-		// TODO Auto-generated method stub
-		return null;
+		return texture;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("x: %.2f\ty: %.2f\tTexture: " + texture, x, y);
+	}
 }

@@ -21,6 +21,7 @@ public class PlayerImp implements Player {
 	private PosNegZero stateY;
 	private int health;
 	private int lives;
+	// if greater than zero player is invincible
 	private float invincible;
 	// players bullets
 	private Array<Bullet> bullets;

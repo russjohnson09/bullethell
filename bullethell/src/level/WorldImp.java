@@ -61,7 +61,9 @@ public class WorldImp implements World {
 			bullet = bullets.get(i);
 			if (isCollision(player.getX(), player.getY(), player.getR(),
 					bullet.getX(), bullet.getY(), bullet.getR())) {
-				player.decrementHealth();
+				if (!player.getInvincible()) {
+					player.decrementHealth();
+				}
 				bullets.removeIndex(i);
 			}
 		}
