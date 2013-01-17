@@ -16,16 +16,16 @@ public class EnemyImp implements Enemy {
 
 	public static final float MOVEMENT = 1;
 	public static final float BOUNDARY = 20;
-	private final float DELAY = 1;
-	private float delay;
+	public static final float DELAY = 1;
+	protected float delay;
 
-	private static Array<Bullet> bullets = new Array<Bullet>();
+	protected static Array<Bullet> bullets = new Array<Bullet>();
 
-	private int health;
-	private float x;
-	private float y;
-	private float r;
-	private Texture texture;
+	protected int health;
+	protected float x;
+	protected float y;
+	protected float r;
+	protected Texture texture;
 
 	public EnemyImp() {
 		health = 10;
@@ -57,17 +57,20 @@ public class EnemyImp implements Enemy {
 	public void update(float delta) {
 		x += MOVEMENT * delta;
 		delay -= delta;
+		addBullet();
+		updateBullets(delta);
 
+	}
+
+	protected void addBullet() {
 		if (delay < 0) {
 			bullets.add(new BulletImp(x, y));
 			delay = DELAY;
 		}
 
-		updateBullets(delta);
-
 	}
 
-	private void updateBullets(float delta) {
+	protected void updateBullets(float delta) {
 		Bullet bullet;
 		for (int i = bullets.size - 1; i >= 0; i--) {
 			bullet = bullets.get(i);

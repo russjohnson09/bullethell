@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 import entity.Enemy;
 import entity.EnemyImp;
+import entity.EnemySwooping;
 
 /**
  * Basic implementation of Level. Makes a few things to test.
@@ -25,6 +26,7 @@ public class LevelImp implements Level {
 
 	public LevelImp() {
 		enemyScript.add(new NodeImp(new EnemyImp(), 1));
+		enemyScript.add(new NodeImp(new EnemySwooping(), 3));
 
 	}
 
