@@ -21,39 +21,24 @@ public class EnemyImp implements Enemy {
 	protected static Array<Bullet> bullets = new Array<Bullet>();
 	protected static int kills = 0;
 
+	// the original position of the enemy
+	protected final float ox;
+	protected final float oy;
 	protected float x;
 	protected float y;
 	protected float r;
+	protected Path path;
 	protected int health;
-	protected float speed;
 	protected Texture texture;
 
 	public EnemyImp() {
 		health = 10;
-		x = 0;
-		y = 40;
+		x = ox = 0;
+		y = oy = 40;
 		r = 1;
-		speed = 5;
+		path = new Path01(10, 0, 10, -5);
 		texture = Textures.ENEMY01;
 
-		delay = 0.5f;
-
-	}
-
-	public EnemyImp(float x, float y) {
-		this();
-		this.x = x;
-		this.y = y;
-
-	}
-
-	public EnemyImp(float x, float y, float r, int health, float speed) {
-		this.x = x;
-		this.y = y;
-		this.r = r;
-		this.health = health;
-		this.speed = speed;
-		texture = Textures.ENEMY01;
 		delay = 0.5f;
 
 	}
@@ -64,10 +49,6 @@ public class EnemyImp implements Enemy {
 			kills++;
 			return true;
 		}
-		return outOfBounds();
-	}
-
-	protected boolean outOfBounds() {
 		return (x > BOUNDARY_X + MARGIN || y > BOUNDARY_Y + MARGIN)
 				|| (x < -MARGIN || y < -MARGIN);
 	}
@@ -84,9 +65,13 @@ public class EnemyImp implements Enemy {
 
 	@Override
 	public void update(float delta) {
-		x += speed * delta;
+		path.update(delta);
+		x = ox + path.getX();
+		y = oy + path.getY();
+
 		delay -= delta;
 		addBullet();
+		updateBullets(delta);
 
 	}
 

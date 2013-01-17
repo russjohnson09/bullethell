@@ -10,10 +10,7 @@ import utils.NodeImp;
 import com.badlogic.gdx.utils.Array;
 
 import entity.Enemy;
-import entity.Enemy01;
 import entity.EnemyImp;
-import entity.EnemyPath;
-import entity.EnemySwooping;
 
 /**
  * Basic implementation of Level. Makes a few things for testing purposes.
@@ -30,8 +27,6 @@ public class LevelImp implements Level {
 	private Array<Enemy> enemies = new Array<Enemy>();
 
 	public LevelImp() {
-		// demo01();
-		// demo02();
 		demoPath();
 
 	}
@@ -40,33 +35,17 @@ public class LevelImp implements Level {
 	 * Demonstration of enemies with paths.
 	 */
 	private void demoPath() {
-		EnemyPath enemy = new EnemyPath();
+		Enemy enemy = new EnemyImp();
 		enemyScript.add(new NodeImp(enemy, 1));
 		Path path = new Para01(1, -1);
 		((Para01) path).setSpeed(10);
-		enemy = new EnemyPath(-5, 40, 0.5f, 3, 0.2f, path);
+		enemy = new EnemyImp();
 		enemyScript.add(new NodeImp(enemy, 1));
 		path = new Path01(5, 0, -5, 5);
-		enemy = new EnemyPath(3, 40, 0.5f, 3, 0.2f, path);
-		enemyScript.add(new NodeImp(enemy, 0));
+		enemy = new EnemyImp();
+		enemyScript.add(new NodeImp(enemy, 1));
 		// enemy = new EnemyPath(10, float y, float r, int health, float speed,
 		// Parametric path);
-
-	}
-
-	private void demo02() {
-		Enemy01 enemy = new Enemy01(0, 40);
-		// enemy.addListOfBullets(new BulletImp(0, 40), 1);
-
-	}
-
-	private void demo01() {
-		enemyScript.add(new NodeImp(new EnemyImp(0, 40), 1));
-		enemyScript.add(new NodeImp(new EnemySwooping(0, 40), 3));
-		enemyScript.add(new NodeImp(new EnemyImp(0, 40), 1));
-		enemyScript.add(new NodeImp(new EnemyImp(0, 40), 1));
-		Enemy enemy = new EnemyImp(0, 40);
-		enemyScript.add(new NodeImp(new EnemyImp(0, 40), 1));
 
 	}
 
