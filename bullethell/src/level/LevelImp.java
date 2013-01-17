@@ -1,5 +1,6 @@
 package level;
 
+import parametric.Para01;
 import utils.LinkedList;
 import utils.LinkedListImp;
 import utils.NodeImp;
@@ -10,10 +11,11 @@ import entity.BulletImp;
 import entity.Enemy;
 import entity.Enemy01;
 import entity.EnemyImp;
+import entity.EnemyPath;
 import entity.EnemySwooping;
 
 /**
- * Basic implementation of Level. Makes a few things to test.
+ * Basic implementation of Level. Makes a few things for testing purposes.
  * 
  * @author russ
  * 
@@ -28,7 +30,23 @@ public class LevelImp implements Level {
 
 	public LevelImp() {
 		// demo01();
-		demo02();
+		// demo02();
+		demoPath();
+
+	}
+
+	/**
+	 * Demonstration of enemies with paths.
+	 */
+	private void demoPath() {
+		EnemyPath enemy = new EnemyPath();
+		enemyScript.add(new NodeImp(enemy, 1));
+		Para01 path = new Para01(1, -1);
+		path.setSpeed(10);
+		enemy = new EnemyPath(-5, 40, 0.5f, 3, 0.2f, path);
+		enemyScript.add(new NodeImp(enemy, 1));
+		// enemy = new EnemyPath(10, float y, float r, int health, float speed,
+		// Parametric path);
 
 	}
 
@@ -60,6 +78,7 @@ public class LevelImp implements Level {
 		}
 
 		updateEnemies(delta);
+		EnemyImp.updateBullets(delta);
 
 	}
 

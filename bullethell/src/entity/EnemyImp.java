@@ -14,23 +14,22 @@ import com.badlogic.gdx.utils.Array;
  */
 public class EnemyImp implements Enemy {
 
-	public static final float DELAY = 1;
 	protected float delay;
 
 	protected static Array<Bullet> bullets = new Array<Bullet>();
 	protected static int kills = 0;
 
-	protected int health;
 	protected float x;
 	protected float y;
 	protected float r;
+	protected int health;
 	protected float speed;
 	protected Texture texture;
 
 	public EnemyImp() {
 		health = 10;
 		x = 0;
-		y = 5;
+		y = 40;
 		r = 1;
 		speed = 5;
 		texture = Textures.ENEMY01;
@@ -43,6 +42,17 @@ public class EnemyImp implements Enemy {
 		this();
 		this.x = x;
 		this.y = y;
+
+	}
+
+	public EnemyImp(float x, float y, float r, int health, float speed) {
+		this.x = x;
+		this.y = y;
+		this.r = r;
+		this.health = health;
+		this.speed = speed;
+		texture = Textures.ENEMY01;
+		delay = 0.5f;
 
 	}
 
@@ -75,7 +85,6 @@ public class EnemyImp implements Enemy {
 		x += speed * delta;
 		delay -= delta;
 		addBullet();
-		updateBullets(delta);
 
 	}
 
@@ -87,7 +96,7 @@ public class EnemyImp implements Enemy {
 
 	}
 
-	protected void updateBullets(float delta) {
+	public static void updateBullets(float delta) {
 		Bullet bullet;
 		for (int i = bullets.size - 1; i >= 0; i--) {
 			bullet = bullets.get(i);

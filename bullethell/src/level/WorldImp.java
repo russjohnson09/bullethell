@@ -32,6 +32,7 @@ public class WorldImp implements World {
 		checkEnemyCollision();
 		player.update(delta);
 		level.update(delta);
+		PlayerImp.updateBullets(delta);
 		render();
 
 	}

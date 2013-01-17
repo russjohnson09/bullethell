@@ -18,6 +18,7 @@ public class PlayerImp implements Player {
 	private float r;
 	// radius of bullet
 	private float bulletR;
+	private float bulletSpeed;
 	private PosNegZero stateX;
 	private PosNegZero stateY;
 	// current health of player
@@ -28,14 +29,14 @@ public class PlayerImp implements Player {
 	// if greater than zero player is invincible
 	private float invincible;
 	// players bullets
-	private Array<Bullet> bullets = new Array<Bullet>();
+	private static Array<Bullet> bullets = new Array<Bullet>();
 	private boolean isSlow = false;
 
 	public PlayerImp() {
 		x = 5;
 		y = 2;
 		r = 1;
-		speed = 7;
+		speed = 20;
 		stateX = PosNegZero.ZERO;
 		stateY = PosNegZero.ZERO;
 		timeTilFire = 0.2f;
@@ -43,6 +44,9 @@ public class PlayerImp implements Player {
 		invincible = 3;
 		lives = 3;
 		texture = null;
+
+		bulletR = 0.1f;
+		bulletSpeed = 50;
 	}
 
 	@Override
@@ -63,7 +67,6 @@ public class PlayerImp implements Player {
 	@Override
 	public void update(float delta) {
 		float move = (isSlow) ? speed / 2 : speed;
-		updateBullets(delta);
 		invincible -= delta;
 		if (stateX == PosNegZero.POS && x < Renderer.CAMERA_WIDTH)
 			x += move * delta;
@@ -82,7 +85,7 @@ public class PlayerImp implements Player {
 
 	}
 
-	private void updateBullets(float delta) {
+	public static void updateBullets(float delta) {
 		Bullet bullet;
 		for (int i = bullets.size - 1; i >= 0; i--) {
 			bullet = bullets.get(i);
@@ -96,7 +99,7 @@ public class PlayerImp implements Player {
 
 	private void fire(float delta) {
 		if (timeTilFire < 0) {
-			bullets.add(new BulletUp(x, y, ));
+			bullets.add(new BulletUp(x, y, bulletR, bulletSpeed));
 			timeTilFire = delay;
 		} else
 			timeTilFire -= delta;
