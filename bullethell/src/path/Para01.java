@@ -1,4 +1,4 @@
-package parametric;
+package path;
 
 /**
  * Parametric equation of the form <x,y> = <a1*t^2 + b1*t + c1, a2*t^2 + b2*t +

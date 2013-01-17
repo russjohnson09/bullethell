@@ -1,6 +1,8 @@
 package level;
 
-import parametric.Para01;
+import path.Para01;
+import path.Path;
+import path.Path01;
 import utils.LinkedList;
 import utils.LinkedListImp;
 import utils.NodeImp;
@@ -41,10 +43,13 @@ public class LevelImp implements Level {
 	private void demoPath() {
 		EnemyPath enemy = new EnemyPath();
 		enemyScript.add(new NodeImp(enemy, 1));
-		Para01 path = new Para01(1, -1);
-		path.setSpeed(10);
+		Path path = new Para01(1, -1);
+		((Para01) path).setSpeed(10);
 		enemy = new EnemyPath(-5, 40, 0.5f, 3, 0.2f, path);
 		enemyScript.add(new NodeImp(enemy, 1));
+		path = new Path01(5, 0, -5, 5);
+		enemy = new EnemyPath(3, 40, 0.5f, 3, 0.2f, path);
+		enemyScript.add(new NodeImp(enemy, 0));
 		// enemy = new EnemyPath(10, float y, float r, int health, float speed,
 		// Parametric path);
 

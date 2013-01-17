@@ -1,7 +1,7 @@
 package entity;
 
-import parametric.Para01;
-import parametric.Parametric;
+import path.Para01;
+import path.Path;
 
 /**
  * An enemy that is updated using a parametric equation.
@@ -11,7 +11,7 @@ import parametric.Parametric;
  */
 public class EnemyPath extends EnemyImp {
 
-	protected Parametric path;
+	protected Path path;
 
 	// the original position of the enemy
 	protected final float ox;
@@ -25,7 +25,7 @@ public class EnemyPath extends EnemyImp {
 	}
 
 	public EnemyPath(float x, float y, float r, int health, float speed,
-			Parametric path) {
+			Path path) {
 		super(x, y, r, health, speed);
 		ox = x;
 		oy = y;
