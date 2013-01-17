@@ -9,8 +9,8 @@ import entity.Entity;
 
 public class Renderer {
 
-	private static final float CAMERA_WIDTH = 10f;
-	private static final float CAMERA_HEIGHT = 7f;
+	public static final float CAMERA_WIDTH = 24f;
+	public static final float CAMERA_HEIGHT = 42.7f;
 
 	private OrthographicCamera cam;
 
@@ -35,16 +35,16 @@ public class Renderer {
 		if (debug) {
 			debugRenderer.setProjectionMatrix(cam.combined);
 			debugRenderer.begin(ShapeType.Rectangle);
-			debugRenderer.rect(e.getX() - e.getR(), e.getY(), e.getR() * 2,
-					e.getR() * 2);
+			debugRenderer.rect(e.getX() - e.getR(), e.getY() - e.getR(),
+					e.getR() * 2, e.getR() * 2);
 			debugRenderer.end();
 		}
 
 	}
 
 	public void setSize(int width, int height) {
-		ppuX = (float) width / CAMERA_WIDTH;
-		ppuY = (float) height / CAMERA_HEIGHT;
+		ppuX = width / CAMERA_WIDTH;
+		ppuY = height / CAMERA_HEIGHT;
 
 	}
 

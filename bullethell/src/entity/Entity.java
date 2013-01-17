@@ -1,6 +1,5 @@
 package entity;
 
-
 /**
  * An Entity is the most basic element in the game.
  * 
@@ -27,6 +26,10 @@ public interface Entity extends Updateable, Viewable {
 	 * @return y position on xy plane
 	 */
 	float getY();
+
+	void setX(float x);
+
+	void setY(float y);
 
 	/**
 	 * 

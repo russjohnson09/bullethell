@@ -14,11 +14,12 @@ public class WorldImp implements World {
 
 	private Level level;
 	private Renderer renderer;
-	private Player player = new PlayerImp();
+	private Player player;
 
 	public WorldImp(Renderer renderer) {
 		level = new LevelImp();
 		this.renderer = renderer;
+		player = new PlayerImp();
 
 	}
 
@@ -107,15 +108,28 @@ public class WorldImp implements World {
 
 	}
 
+	@Override
+	public Player getPlayer() {
+		return player;
+	}
+
+	@Override
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 	private boolean isCollision(float x, float y, float r, float x2, float y2,
 			float r2) {
 		return Math.pow(x - x2, 2) + Math.pow(y - y2, 2) < Math.pow(r + r2, 2);
 	}
 
+	@Override
 	public String toString() {
 		String str = "";
 		str += "Player: ";
 		str += player;
+		str += "Player bullets: ";
+		str += player.getBullets();
 		str += "\nLevel: ";
 		str += level;
 		return str;

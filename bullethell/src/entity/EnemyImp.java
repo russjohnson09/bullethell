@@ -14,17 +14,17 @@ import com.badlogic.gdx.utils.Array;
  */
 public class EnemyImp implements Enemy {
 
-	public static final float MOVEMENT = 1;
-	public static final float BOUNDARY = 20;
 	public static final float DELAY = 1;
 	protected float delay;
 
 	protected static Array<Bullet> bullets = new Array<Bullet>();
+	protected static int kills = 0;
 
 	protected int health;
 	protected float x;
 	protected float y;
 	protected float r;
+	protected float speed;
 	protected Texture texture;
 
 	public EnemyImp() {
@@ -32,15 +32,32 @@ public class EnemyImp implements Enemy {
 		x = 0;
 		y = 5;
 		r = 1;
+		speed = 5;
 		texture = Textures.ENEMY01;
 
 		delay = 0.5f;
 
 	}
 
+	public EnemyImp(float x, float y) {
+		this();
+		this.x = x;
+		this.y = y;
+
+	}
+
 	@Override
 	public boolean isFin() {
-		return x > BOUNDARY;
+		if (health < 0) {
+			kills++;
+			return true;
+		}
+		return outOfBounds();
+	}
+
+	protected boolean outOfBounds() {
+		return (x > BOUNDARY_X + MARGIN || y > BOUNDARY_Y + MARGIN)
+				|| (x < -MARGIN || y < -MARGIN);
 	}
 
 	@Override
@@ -55,7 +72,7 @@ public class EnemyImp implements Enemy {
 
 	@Override
 	public void update(float delta) {
-		x += MOVEMENT * delta;
+		x += speed * delta;
 		delay -= delta;
 		addBullet();
 		updateBullets(delta);
@@ -111,8 +128,26 @@ public class EnemyImp implements Enemy {
 		return bullets;
 	}
 
+	@Override
 	public String toString() {
 		return String.format("x: %.2f\ty: %.2f", x, y);
+	}
+
+	@Override
+	public int getKills() {
+		return kills;
+	}
+
+	@Override
+	public void setX(float x) {
+		this.x = x;
+
+	}
+
+	@Override
+	public void setY(float y) {
+		this.y = y;
+
 	}
 
 }

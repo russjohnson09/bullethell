@@ -1,18 +1,31 @@
 package bullethell;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import level.World;
 import level.WorldImp;
 import render.Renderer;
+import states.PosNegZero;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+
+import entity.Player;
 
 public class GameScreen implements Screen, InputProcessor {
 
 	World world;
 	Renderer renderer;
+
+	private enum Key {
+		LEFT, RIGHT, UP, DOWN, FIRE, BOMB, SLOW
+	}
+
+	private Map<Key, Boolean> key = new HashMap<Key, Boolean>();
 
 	@Override
 	public void render(float delta) {
@@ -21,6 +34,46 @@ public class GameScreen implements Screen, InputProcessor {
 
 		world.update(delta);
 		System.out.println(world);
+
+		updatePlayerState();
+
+	}
+
+	private void updatePlayerState() {
+		Player player = world.getPlayer();
+		if (key.get(Key.LEFT)) {
+			if (key.get(Key.RIGHT)) {
+				player.setStateX(PosNegZero.ZERO);
+			} else {
+				player.setStateX(PosNegZero.NEG);
+			}
+		} else if (key.get(Key.RIGHT)) {
+			player.setStateX(PosNegZero.POS);
+		} else {
+			player.setStateX(PosNegZero.ZERO);
+		}
+
+		if (key.get(Key.DOWN)) {
+			if (key.get(Key.UP)) {
+				player.setStateY(PosNegZero.ZERO);
+			} else {
+				player.setStateY(PosNegZero.NEG);
+			}
+		} else if (key.get(Key.UP)) {
+			player.setStateY(PosNegZero.POS);
+		} else {
+			player.setStateY(PosNegZero.ZERO);
+		}
+
+		if (key.get(Key.SLOW))
+			player.setIsSlow(true);
+		else
+			player.setIsSlow(false);
+
+		if (key.get(Key.FIRE))
+			player.setIsFiring(true);
+		else
+			player.setIsFiring(false);
 
 	}
 
@@ -35,6 +88,14 @@ public class GameScreen implements Screen, InputProcessor {
 		renderer = new Renderer(true);
 		world = new WorldImp(renderer);
 		Gdx.input.setInputProcessor(this);
+
+		key.put(Key.UP, false);
+		key.put(Key.DOWN, false);
+		key.put(Key.LEFT, false);
+		key.put(Key.RIGHT, false);
+		key.put(Key.FIRE, false);
+		key.put(Key.BOMB, false);
+		key.put(Key.SLOW, false);
 
 	}
 
@@ -62,16 +123,45 @@ public class GameScreen implements Screen, InputProcessor {
 
 	}
 
+	/**
+	 * Only controllable object is the player.
+	 */
 	@Override
 	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
+		if (keycode == Keys.LEFT)
+			key.put(Key.LEFT, true);
+		if (keycode == Keys.RIGHT)
+			key.put(Key.RIGHT, true);
+		if (keycode == Keys.DOWN)
+			key.put(Key.DOWN, true);
+		if (keycode == Keys.UP)
+			key.put(Key.UP, true);
+		if (keycode == Keys.Z)
+			key.put(Key.FIRE, true);
+		if (keycode == Keys.SHIFT_LEFT)
+			key.put(Key.SLOW, true);
+		if (keycode == Keys.SPACE)
+			key.put(Key.BOMB, true);
+		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
+		if (keycode == Keys.LEFT)
+			key.put(Key.LEFT, false);
+		if (keycode == Keys.RIGHT)
+			key.put(Key.RIGHT, false);
+		if (keycode == Keys.DOWN)
+			key.put(Key.DOWN, false);
+		if (keycode == Keys.UP)
+			key.put(Key.UP, false);
+		if (keycode == Keys.Z)
+			key.put(Key.FIRE, false);
+		if (keycode == Keys.SHIFT_LEFT)
+			key.put(Key.SLOW, false);
+		if (keycode == Keys.SPACE)
+			key.put(Key.BOMB, false);
+		return true;
 	}
 
 	@Override

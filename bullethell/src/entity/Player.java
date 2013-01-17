@@ -14,10 +14,18 @@ public interface Player extends Entity, Viewable, Killable, Invincible {
 
 	void setStateY(PosNegZero state);
 
+	boolean isFiring();
+
+	void setIsFiring(boolean b);
+
 	int getLives();
 
-	void decrementHealth();
+	void decLives();
+
+	void incLives();
 
 	Array<Bullet> getBullets();
+
+	void setIsSlow(boolean b);
 
 }

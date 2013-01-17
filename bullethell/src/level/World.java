@@ -1,5 +1,6 @@
 package level;
 
+import entity.Player;
 import entity.Updateable;
 
 /**
@@ -9,6 +10,10 @@ import entity.Updateable;
  * @author russ
  */
 public interface World extends Updateable {
+
+	public Player getPlayer();
+
+	public void setPlayer(Player player);
 
 	void render();
 
