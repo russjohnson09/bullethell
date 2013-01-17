@@ -1,6 +1,6 @@
 package entity;
 
-import utils.Textures;
+import path.Path;
 
 import com.badlogic.gdx.graphics.Texture;
 
@@ -17,49 +17,25 @@ public class BulletImp implements Bullet {
 
 	protected float x;
 	protected float y;
+	protected final float ox;
+	protected final float oy;
 	protected float r;
-	protected float speed;
+	protected Path path;
 	protected Texture texture;
-	// is the bullet location absolute
-	protected boolean isAbsolute = false;
 
-	// there has been a collision
-	protected boolean isFin = false;
+	protected boolean isGrazed = false;
 
-	protected boolean isGrazed;
-
-	public BulletImp(float x, float y) {
-		this.x = x;
-		this.y = y;
-		r = 0.25f;
-		speed = 20;
-		texture = Textures.BULLET01;
-	}
-
-	public BulletImp(float x, float y, float r) {
-		this(x, y);
-		this.x = x;
-		this.y = y;
+	public BulletImp(float x, float y, float r, Path path, Texture texture) {
+		super();
+		this.x = ox = x;
+		this.y = oy = y;
 		this.r = r;
-	}
-
-	public BulletImp(float x, float y, float r, float speed) {
-		this(x, y, r);
-		this.speed = speed;
-
-	}
-
-	@Override
-	public void setIsFin(boolean b) {
-		isFin = b;
+		this.path = path;
+		this.texture = texture;
 	}
 
 	@Override
 	public boolean isFin() {
-		return isFin || outOfBounds();
-	}
-
-	protected boolean outOfBounds() {
 		return (x > BOUNDARY_X + MARGIN || y > BOUNDARY_Y + MARGIN)
 				|| (x < -MARGIN || y < -MARGIN);
 	}
@@ -81,7 +57,10 @@ public class BulletImp implements Bullet {
 
 	@Override
 	public void update(float delta) {
-		y -= speed * delta;
+		path.update(delta);
+
+		x = ox + path.getX();
+		y = oy + path.getY();
 
 	}
 
@@ -129,17 +108,6 @@ public class BulletImp implements Bullet {
 	@Override
 	public void setY(float y) {
 		this.y = y;
-
-	}
-
-	@Override
-	public boolean getIsAbsolute() {
-		return isAbsolute;
-	}
-
-	@Override
-	public void setIsAbsolute(boolean b) {
-		this.isAbsolute = b;
 
 	}
 }

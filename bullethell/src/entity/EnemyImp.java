@@ -1,5 +1,7 @@
 package entity;
 
+import path.Path;
+import path.Path01;
 import utils.Textures;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -90,7 +92,8 @@ public class EnemyImp implements Enemy {
 
 	protected void addBullet() {
 		if (delay < 0) {
-			bullets.add(new BulletImp(x, y));
+			Path path = new Path01(0, 0, -5, 0);
+			bullets.add(new BulletImp(x, y, 0.5f, path, Textures.BULLET01));
 			delay = DELAY;
 		}
 

@@ -7,8 +7,6 @@ public interface Bullet extends Entity {
 	// bullets can exist slightly off screen
 	float MARGIN = 7f;
 
-	void setIsFin(boolean b);
-
 	void incGraze();
 
 	int getGraze();
@@ -17,9 +15,9 @@ public interface Bullet extends Entity {
 	void setIsGrazed();
 
 	boolean getIsGrazed();
-
-	boolean getIsAbsolute();
-
-	void setIsAbsolute(boolean b);
+	//
+	// boolean getIsAbsolute();
+	//
+	// void setIsAbsolute(boolean b);
 
 }

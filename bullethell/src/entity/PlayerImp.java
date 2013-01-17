@@ -1,7 +1,10 @@
 package entity;
 
+import path.Path;
+import path.Path01;
 import render.Renderer;
 import states.PosNegZero;
+import utils.Textures;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
@@ -16,6 +19,8 @@ public class PlayerImp implements Player {
 	private float x;
 	private float y;
 	private float r;
+	private float hitBox;
+	private float grazeBox;
 	// radius of bullet
 	private float bulletR;
 	private float bulletSpeed;
@@ -36,6 +41,8 @@ public class PlayerImp implements Player {
 		x = 5;
 		y = 2;
 		r = 1;
+		hitBox = 1;
+		grazeBox = 2;
 		speed = 20;
 		stateX = PosNegZero.ZERO;
 		stateY = PosNegZero.ZERO;
@@ -85,21 +92,10 @@ public class PlayerImp implements Player {
 
 	}
 
-	public static void updateBullets(float delta) {
-		Bullet bullet;
-		for (int i = bullets.size - 1; i >= 0; i--) {
-			bullet = bullets.get(i);
-			bullet.update(delta);
-			if (bullet.isFin()) {
-				bullets.removeIndex(i);
-			}
-		}
-
-	}
-
 	private void fire(float delta) {
 		if (timeTilFire < 0) {
-			bullets.add(new BulletUp(x, y, bulletR, bulletSpeed));
+			Path path = new Path01(0, 0, 40, 0);
+			bullets.add(new BulletImp(x, y, 0.5f, path, Textures.BULLET01));
 			timeTilFire = delay;
 		} else
 			timeTilFire -= delta;

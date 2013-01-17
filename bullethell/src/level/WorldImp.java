@@ -30,10 +30,36 @@ public class WorldImp implements World {
 	public void update(float delta) {
 		checkPlayerCollision();
 		checkEnemyCollision();
+		updateEnemies(delta);
 		player.update(delta);
 		level.update(delta);
-		PlayerImp.updateBullets(delta);
+		updatePlayerBullets(delta);
+		EnemyImp.updateBullets(delta);
 		render();
+
+	}
+
+	private void updatePlayerBullets(float delta) {
+		Array<Bullet> bullets = player.getBullets();
+		Bullet bullet;
+		for (int i = bullets.size - 1; i >= 0; i--) {
+			bullet = bullets.get(i);
+			bullet.update(delta);
+			if (bullet.isFin()) {
+				bullets.removeIndex(i);
+			}
+		}
+
+	}
+
+	private void updateEnemies(float delta) {
+		Array<Enemy> enemies = level.getEnemies();
+		for (int i = enemies.size - 1; i >= 0; i--) {
+			Enemy enemy = enemies.get(i);
+			enemy.update(delta);
+			if (enemy.isFin())
+				enemies.removeIndex(i);
+		}
 
 	}
 

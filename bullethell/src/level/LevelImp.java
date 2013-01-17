@@ -9,7 +9,6 @@ import utils.NodeImp;
 
 import com.badlogic.gdx.utils.Array;
 
-import entity.BulletImp;
 import entity.Enemy;
 import entity.Enemy01;
 import entity.EnemyImp;
@@ -57,7 +56,7 @@ public class LevelImp implements Level {
 
 	private void demo02() {
 		Enemy01 enemy = new Enemy01(0, 40);
-		enemy.addListOfBullets(new BulletImp(0, 40), 1);
+		// enemy.addListOfBullets(new BulletImp(0, 40), 1);
 
 	}
 
@@ -81,9 +80,6 @@ public class LevelImp implements Level {
 				enemies.add(enemy);
 			}
 		}
-
-		updateEnemies(delta);
-		EnemyImp.updateBullets(delta);
 
 	}
 
