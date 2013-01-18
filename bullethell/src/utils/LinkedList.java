@@ -3,35 +3,60 @@ package utils;
 import entity.Entity;
 
 /**
- * Interface for an lightweight linked list.
+ * Implementation of LinkedList
  * 
- * @author russjohnson09@gmail.com
+ * @author russ
+ * 
  */
-public interface LinkedList {
+public class LinkedList {
+
+	Node head;
+	Node tail;
+
+	public LinkedList() {
+		head = null;
+		tail = null;
+	}
 
 	/**
-	 * Gets the current node
+	 * Updates the linked list returning an entity if it is time to spawn it and
+	 * null if we are doing nothing.
 	 */
-	Node getCurrent();
+	public Entity update(float delta) {
+		head.update(delta);
 
-	/**
-	 * Adds Entity to end of list.
-	 * 
-	 * @param node
-	 *            to be added
-	 */
-	void add(Node node);
+		if (head.getDelay() < 0) {
+			Entity entity = head.getEntity();
+			move();
+			return entity;
+		}
 
-	/**
-	 * 
-	 * @return is the list empty
-	 */
-	boolean isEmpty();
+		return null;
 
-	/**
-	 * 
-	 * @return Entity to be spawned
-	 */
-	Entity update(float delta);
+	}
+
+	private void move() {
+		if (head != null)
+			head = head.getNext();
+
+	}
+
+	public Node getCurrent() {
+		return head;
+	}
+
+	public void add(Node node) {
+		if (head == null)
+			head = tail = node;
+		else {
+			tail.setNext(node);
+			tail = node;
+		}
+
+	}
+
+	public boolean isEmpty() {
+		return head == null;
+	}
 
 }

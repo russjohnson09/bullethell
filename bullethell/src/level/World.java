@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.Array;
 
 import entity.Bullet;
 import entity.Enemy;
-import entity.EnemyImp;
 import entity.Player;
 
 public class World {
@@ -32,8 +31,21 @@ public class World {
 		player.update(delta);
 		level.update(delta);
 		updatePlayerBullets(delta);
-		EnemyImp.updateBullets(delta);
+		updateEnemyBullets(delta);
 		render();
+
+	}
+
+	private void updateEnemyBullets(float delta) {
+		Array<Bullet> bullets = Enemy.getBullets();
+		Bullet bullet;
+		for (int i = bullets.size - 1; i >= 0; i--) {
+			bullet = bullets.get(i);
+			bullet.update(delta);
+			if (bullet.isFin()) {
+				bullets.removeIndex(i);
+			}
+		}
 
 	}
 
@@ -74,7 +86,7 @@ public class World {
 				bullet = bullets.get(i);
 				if (isCollision(enemy.getX(), enemy.getY(), enemy.getR(),
 						bullet.getX(), bullet.getY(), bullet.getR())) {
-					enemy.decrementHealth();
+					enemy.setHealth(enemy.getHealth() - 1);
 					bullets.removeIndex(i);
 				}
 			}
@@ -83,14 +95,14 @@ public class World {
 	}
 
 	private void checkPlayerCollision() {
-		Array<Bullet> bullets = EnemyImp.getBullets();
+		Array<Bullet> bullets = Enemy.getBullets();
 		Bullet bullet;
 		for (int i = bullets.size - 1; i >= 0; i--) {
 			bullet = bullets.get(i);
 			if (isCollision(player.getX(), player.getY(), player.getR(),
 					bullet.getX(), bullet.getY(), bullet.getR())) {
-				if (!player.getInvincible()) {
-					player.decrementHealth();
+				if (player.getInvincible() < 0) {
+					player.setHealth(player.getHealth() - 1);
 				}
 				bullets.removeIndex(i);
 			}
@@ -98,7 +110,6 @@ public class World {
 
 	}
 
-	@Override
 	public void render() {
 		renderPlayer();
 		renderEnemy();
@@ -108,7 +119,7 @@ public class World {
 	}
 
 	private void renderEnemyBullet() {
-		for (Bullet bullet : EnemyImp.getBullets()) {
+		for (Bullet bullet : Enemy.getBullets()) {
 			renderer.render(bullet);
 		}
 
@@ -133,12 +144,10 @@ public class World {
 
 	}
 
-	@Override
 	public Player getPlayer() {
 		return player;
 	}
 
-	@Override
 	public void setPlayer(Player player) {
 		this.player = player;
 	}

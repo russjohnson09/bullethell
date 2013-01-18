@@ -14,7 +14,7 @@ public class Player implements Entity {
 	public static final float X_BOUND = Renderer.CAMERA_WIDTH;
 	public static final float Y_BOUND = Renderer.CAMERA_HEIGHT;
 
-	private static Array<Bullet> bullets = new Array<Bullet>();
+	private Array<Bullet> bullets = new Array<Bullet>();
 
 	private final int MAX_HEALTH;
 	private final float SPEED;
@@ -94,12 +94,12 @@ public class Player implements Entity {
 
 	}
 
-	public static Array<Bullet> getBullets() {
+	public Array<Bullet> getBullets() {
 		return bullets;
 	}
 
-	public static void setBullets(Array<Bullet> bullets) {
-		Player.bullets = bullets;
+	public void setBullets(Array<Bullet> bullets) {
+		this.bullets = bullets;
 	}
 
 	public float getTimeTilFire() {

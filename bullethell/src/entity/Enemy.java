@@ -4,7 +4,6 @@ import path.Path;
 import path.Path01;
 import render.Renderer;
 import utils.LinkedList;
-import utils.LinkedListImp;
 import utils.Textures;
 import barrage.Barrage;
 
@@ -41,7 +40,7 @@ public class Enemy implements Entity {
 	protected float h;
 	protected Texture texture;
 
-	protected LinkedList bulletScript = new LinkedListImp();
+	protected LinkedList bulletScript = new LinkedList();
 
 	protected boolean isFin = false;
 

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import level.World;
-import level.WorldImp;
 import render.Renderer;
 import states.PosNegZero;
 
@@ -66,14 +65,14 @@ public class GameScreen implements Screen, InputProcessor {
 		}
 
 		if (key.get(Key.SLOW))
-			player.setIsSlow(true);
+			player.setSlow(true);
 		else
-			player.setIsSlow(false);
+			player.setSlow(false);
 
 		if (key.get(Key.FIRE))
-			player.setIsFiring(true);
+			player.setFiring(true);
 		else
-			player.setIsFiring(false);
+			player.setFiring(false);
 
 	}
 
@@ -86,7 +85,7 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public void show() {
 		renderer = new Renderer(true);
-		world = new WorldImp(renderer);
+		world = new World(renderer);
 		Gdx.input.setInputProcessor(this);
 
 		key.put(Key.UP, false);
