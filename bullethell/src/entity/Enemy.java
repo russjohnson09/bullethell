@@ -47,14 +47,23 @@ public class Enemy implements Entity {
 	public Enemy() {
 		x = ox = 0;
 		y = oy = 40;
-		r = 2;
+		r = h = w = 2;
 		health = 3;
 		path = new Path01(10, 0, -10, 5);
-		w = h = r;
 		texture = Textures.ENEMY01;
 		this.bulletScript = Barrage.fire(0.5f, 100, 0.5f, new Path01(0, 0, -10,
 				0), Textures.BULLET01);
 
+	}
+
+	public Enemy(float x, float y, float r, int health, Path path,
+			Texture texture, LinkedList bulletScript) {
+		this.x = ox = x;
+		this.y = oy = y;
+		this.r = h = w = r;
+		this.health = health;
+		this.path = path;
+		this.bulletScript = bulletScript;
 	}
 
 	@Override
@@ -63,12 +72,19 @@ public class Enemy implements Entity {
 		x = ox + path.getX();
 		y = oy + path.getY();
 
-		Bullet b = (Bullet) bulletScript.update(delta);
-		if (b != null) {
-			b.setOx(x);
-			b.setOy(y);
-			bullets.add(b);
+		// bullets.add(new Bullet());
+		if (inBounds()) {
+			Bullet b = (Bullet) bulletScript.update(delta);
+			if (b != null) {
+				b.setOx(x);
+				b.setOy(y);
+				bullets.add(b);
+			}
 		}
+	}
+
+	private boolean inBounds() {
+		return 0 < x && x < X_BOUND && 0 < y && y < Y_BOUND;
 	}
 
 	public static Array<Bullet> getBullets() {

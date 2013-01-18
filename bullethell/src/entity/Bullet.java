@@ -1,7 +1,9 @@
 package entity;
 
 import path.Path;
+import path.Path01;
 import render.Renderer;
+import utils.Textures;
 
 import com.badlogic.gdx.graphics.Texture;
 
@@ -42,6 +44,15 @@ public class Bullet implements Entity {
 		this.r = r;
 		this.path = path;
 		this.texture = texture;
+
+	}
+
+	public Bullet() {
+		x = ox = 5;
+		y = oy = 40;
+		r = 1;
+		path = new Path01(0, 0, -10, 0);
+		texture = Textures.BULLET01;
 
 	}
 
