@@ -10,8 +10,6 @@ import entity.EnemyImp;
 import entity.Player;
 
 public class World {
-	
-	private final float 
 
 	private Level level;
 	private Renderer renderer;

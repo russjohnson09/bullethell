@@ -1,36 +1,44 @@
 package utils;
 
 import entity.Entity;
-import entity.Updateable;
 
 /**
- * An updateable Node.
+ * Implementation of Node.
  * 
  * @author russ
  * 
  */
-public interface Node extends Updateable {
+public class Node {
 
-	/**
-	 * 
-	 * @return entity in node.
-	 */
-	Entity getEntity();
+	private Entity entity;
+	private Node next;
+	private float delay;
 
-	/**
-	 * @return Node pointed to.
-	 */
-	Node getNext();
+	public Node(Entity entity, float delay) {
+		this.entity = entity;
+		this.delay = delay;
+	}
 
-	/**
-	 * Set node being pointed to.
-	 */
-	void setNext(Node node);
+	public Entity getEntity() {
+		return entity;
+	}
 
-	/**
-	 * 
-	 * @return the delay
-	 */
-	float getDelay();
+	public Node getNext() {
+		return next;
+	}
+
+	public void setNext(Node node) {
+		next = node;
+
+	}
+
+	public void update(float delta) {
+		delay -= delta;
+
+	}
+
+	public float getDelay() {
+		return delay;
+	}
 
 }

@@ -27,4 +27,8 @@ public interface Entity extends Path {
 
 	void setTexture(Texture texture);
 
+	boolean isFin();
+
+	void setFin(boolean b);
+
 }

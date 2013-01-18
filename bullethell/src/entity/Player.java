@@ -11,46 +11,52 @@ import com.badlogic.gdx.utils.Array;
 
 public class Player implements Entity {
 
-	private Texture texture;
-	private float timeTilFire;
-	// delay for fire
-	private final float delay = 0.1f;
-	private boolean isFiring = false;
-	private float x;
-	private float y;
-	private final float r;
-	private final float h;
-	private final float w;
-	private final float r2;
-	private PosNegZero stateX;
-	private PosNegZero stateY;
-	private int health;
+	public static final float X_BOUND = Renderer.CAMERA_WIDTH;
+	public static final float Y_BOUND = Renderer.CAMERA_HEIGHT;
+
+	private static Array<Bullet> bullets = new Array<Bullet>();
+
 	private final int MAX_HEALTH;
 	private final float SPEED;
-	private int lives;
-	// if greater than zero player is invincible
+	private final float DELAY = 0.1f;
+	private float timeTilFire;
+	private boolean isFiring = false;
+
+	private PosNegZero stateX;
+	private PosNegZero stateY;
 
 	private float invincible;
-	// players bullets
-	private static Array<Bullet> bullets = new Array<Bullet>();
 	private boolean isSlow = false;
+	private boolean isFin = false;
+
+	private float x;
+	private float y;
+	private float r;
+	private float r2;
+	private int health;
+	private int lives;
+	private float w;
+	private float h;
+	private Texture texture;
+
+	private float bulletR = 0.2f;
+	private float bulletSpeed = 50;
 
 	public Player() {
 		x = 5;
 		y = 2;
 		r = 1;
 		r2 = 2;
-		speed = 20;
+		SPEED = 20;
 		stateX = PosNegZero.ZERO;
 		stateY = PosNegZero.ZERO;
 		timeTilFire = 0.2f;
-		health = maxHealth = 10;
+		health = MAX_HEALTH = 10;
 		invincible = 3;
 		lives = 3;
+		w = h = 1.5f * r;
 		texture = Textures.PLAYER;
 
-		bulletR = 0.1f;
-		bulletSpeed = 50;
 	}
 
 	@Override
@@ -65,7 +71,7 @@ public class Player implements Entity {
 
 	@Override
 	public void update(float delta) {
-		float move = (isSlow) ? speed / 2 : speed;
+		float move = (isSlow) ? SPEED / 2 : SPEED;
 		invincible -= delta;
 		timeTilFire -= delta;
 		if (stateX == PosNegZero.POS && x < Renderer.CAMERA_WIDTH)
@@ -78,99 +84,150 @@ public class Player implements Entity {
 			y -= move * delta;
 		if (isFiring && timeTilFire < 0) {
 			Path path = new Path01(0, 0, 40, 0);
-			bullets.add(new BulletImp(x, y, 0.5f, path, Textures.BULLET01));
-			timeTilFire = delay;
+			bullets.add(new Bullet(x, y, 0.5f, path, Textures.BULLET01));
+			timeTilFire = DELAY;
 		}
 		if (health < 0) {
-			health = maxHealth;
+			health = MAX_HEALTH;
 			lives--;
 		}
 
 	}
 
-	@Override
-	public Texture getTexture() {
-		return texture;
+	public static Array<Bullet> getBullets() {
+		return bullets;
 	}
 
-	public float getHealth() {
-		return health;
+	public static void setBullets(Array<Bullet> bullets) {
+		Player.bullets = bullets;
 	}
 
-	public float getRadius() {
-		return r;
+	public float getTimeTilFire() {
+		return timeTilFire;
+	}
+
+	public void setTimeTilFire(float timeTilFire) {
+		this.timeTilFire = timeTilFire;
+	}
+
+	public boolean isFiring() {
+		return isFiring;
+	}
+
+	public void setFiring(boolean isFiring) {
+		this.isFiring = isFiring;
 	}
 
 	public PosNegZero getStateX() {
 		return stateX;
 	}
 
+	public void setStateX(PosNegZero stateX) {
+		this.stateX = stateX;
+	}
+
 	public PosNegZero getStateY() {
 		return stateY;
 	}
 
-	public void setStateX(PosNegZero state) {
-		stateX = state;
-
+	public void setStateY(PosNegZero stateY) {
+		this.stateY = stateY;
 	}
 
-	public void setStateY(PosNegZero state) {
-		stateY = state;
+	public float getInvincible() {
+		return invincible;
+	}
 
+	public void setInvincible(float invincible) {
+		this.invincible = invincible;
+	}
+
+	public boolean isSlow() {
+		return isSlow;
+	}
+
+	public void setSlow(boolean isSlow) {
+		this.isSlow = isSlow;
+	}
+
+	public float getR() {
+		return r;
+	}
+
+	public void setR(float r) {
+		this.r = r;
+	}
+
+	public float getR2() {
+		return r2;
+	}
+
+	public void setR2(float r2) {
+		this.r2 = r2;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
 	}
 
 	public int getLives() {
 		return lives;
 	}
 
-	@Override
-	public float getR() {
-		return r;
+	public void setLives(int lives) {
+		this.lives = lives;
 	}
 
-	public Array<Bullet> getBullets() {
-		return bullets;
+	public float getW() {
+		return w;
 	}
 
-	@Override
+	public void setW(float w) {
+		this.w = w;
+	}
+
+	public float getH() {
+		return h;
+	}
+
+	public void setH(float h) {
+		this.h = h;
+	}
+
+	public Texture getTexture() {
+		return texture;
+	}
+
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+
+	public float getBulletR() {
+		return bulletR;
+	}
+
+	public void setBulletR(float bulletR) {
+		this.bulletR = bulletR;
+	}
+
+	public float getBulletSpeed() {
+		return bulletSpeed;
+	}
+
+	public void setBulletSpeed(float bulletSpeed) {
+		this.bulletSpeed = bulletSpeed;
+	}
+
 	public void setX(float x) {
 		this.x = x;
-
 	}
 
-	@Override
 	public void setY(float y) {
 		this.y = y;
-
-	}
-
-	@Override
-	public boolean isFiring() {
-		return isFiring;
-	}
-
-	@Override
-	public void setIsFiring(boolean b) {
-		isFiring = b;
-
-	}
-
-	@Override
-	public void decLives() {
-		lives--;
-
-	}
-
-	@Override
-	public void incLives() {
-		lives++;
-
-	}
-
-	@Override
-	public void setIsSlow(boolean b) {
-		isSlow = b;
-
 	}
 
 	@Override
@@ -179,38 +236,13 @@ public class Player implements Entity {
 	}
 
 	@Override
-	public float getH() {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean isFin() {
+		return isFin;
 	}
 
 	@Override
-	public void setH(float h) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public float getW() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setW(float w) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setR(float r) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setTexture(Texture texture) {
-		// TODO Auto-generated method stub
+	public void setFin(boolean b) {
+		isFin = b;
 
 	}
 
