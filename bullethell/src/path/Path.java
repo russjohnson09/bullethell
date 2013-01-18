@@ -1,14 +1,12 @@
 package path;
 
 /**
- * Interface used for updating the location of a person.
+ * Interface used for updating the location of an object.
  * 
  * @author russ
  * 
  */
 public interface Path {
-
-	void update(float delta);
 
 	float getX();
 
@@ -17,5 +15,7 @@ public interface Path {
 	void setX(float x);
 
 	void setY(float y);
+
+	void update(float delta);
 
 }

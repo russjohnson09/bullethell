@@ -1,40 +1,30 @@
 package entity;
 
+import path.Path;
+
+import com.badlogic.gdx.graphics.Texture;
+
 /**
  * An Entity is the most basic element in the game.
  * 
  * @author russ
  */
-public interface Entity extends Updateable, Viewable {
+public interface Entity extends Path {
 
-	/**
-	 * Returns true when an entity has finished doing what it was set out to do
-	 * and can be removed.
-	 * 
-	 * @return status of entity
-	 */
-	boolean isFin();
-
-	/**
-	 * 
-	 * @return x position on xy plane
-	 */
-	float getX();
-
-	/**
-	 * 
-	 * @return y position on xy plane
-	 */
-	float getY();
-
-	void setX(float x);
-
-	void setY(float y);
-
-	/**
-	 * 
-	 * @return radius of object
-	 */
 	float getR();
+
+	void setR(float r);
+
+	float getH();
+
+	void setH(float h);
+
+	float getW();
+
+	void setW(float w);
+
+	Texture getTexture();
+
+	void setTexture(Texture texture);
 
 }

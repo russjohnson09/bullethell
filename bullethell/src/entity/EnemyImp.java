@@ -2,6 +2,8 @@ package entity;
 
 import path.Path;
 import path.Path01;
+import utils.LinkedList;
+import utils.LinkedListImp;
 import utils.Textures;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -16,20 +18,22 @@ import com.badlogic.gdx.utils.Array;
  */
 public class EnemyImp implements Enemy {
 
-	protected float delay;
-
 	protected static Array<Bullet> bullets = new Array<Bullet>();
 	protected static int kills = 0;
 
 	// the original position of the enemy
-	protected final float ox;
-	protected final float oy;
+	protected float ox;
+	protected float oy;
+
 	protected float x;
 	protected float y;
+
+	// radius of hitbox
 	protected float r;
 	protected Path path;
 	protected int health;
 	protected Texture texture;
+	private LinkedList bulletScript = new LinkedListImp();
 
 	public EnemyImp() {
 		health = 10;
@@ -39,18 +43,6 @@ public class EnemyImp implements Enemy {
 		path = new Path01(10, 0, 10, -5);
 		texture = Textures.ENEMY01;
 
-		delay = 0.5f;
-
-	}
-
-	@Override
-	public boolean isFin() {
-		if (health < 0) {
-			kills++;
-			return true;
-		}
-		return (x > BOUNDARY_X + MARGIN || y > BOUNDARY_Y + MARGIN)
-				|| (x < -MARGIN || y < -MARGIN);
 	}
 
 	@Override
@@ -68,11 +60,6 @@ public class EnemyImp implements Enemy {
 		path.update(delta);
 		x = ox + path.getX();
 		y = oy + path.getY();
-
-		delay -= delta;
-		addBullet();
-		updateBullets(delta);
-
 	}
 
 	protected void addBullet() {
