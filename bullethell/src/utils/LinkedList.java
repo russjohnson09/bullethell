@@ -23,21 +23,18 @@ public class LinkedList {
 	 * null if we are doing nothing.
 	 */
 	public Entity update(float delta) {
-		head.update(delta);
+		if (head != null) {
+			head.update(delta);
+			if (head.getDelay() < 0) {
 
-		if (head.getDelay() < 0) {
-			Entity entity = head.getEntity();
-			move();
-			return entity;
+				Entity entity = head.getEntity();
+				head = head.getNext();
+
+				return entity;
+			}
 		}
 
 		return null;
-
-	}
-
-	private void move() {
-		if (head != null)
-			head = head.getNext();
 
 	}
 

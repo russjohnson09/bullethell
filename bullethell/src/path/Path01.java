@@ -52,4 +52,7 @@ public class Path01 implements Path {
 		this.y = y;
 	}
 
+	public Path copy() {
+		return new Path01(vX, aX, vY, aY);
+	}
 }

@@ -1,6 +1,7 @@
 package level;
 
 import utils.LinkedList;
+import utils.Node;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -29,6 +30,7 @@ public class Level {
 	 */
 	private void demoPath() {
 		Enemy enemy = new Enemy();
+		enemyScript.add(new Node(enemy, 1));
 
 	}
 

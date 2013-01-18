@@ -7,7 +7,7 @@ package path;
  * @author russ
  * 
  */
-public class Para01 implements Parametric {
+public class Para01 implements Path {
 
 	protected float a1;
 	protected float a2;
@@ -115,7 +115,6 @@ public class Para01 implements Parametric {
 
 	}
 
-	@Override
 	public void setSpeed(float speed) {
 		this.speed = speed;
 

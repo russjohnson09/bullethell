@@ -42,6 +42,15 @@ public class Renderer {
 
 	}
 
+	public void render(Entity e, float f) {
+		if (debug) {
+			debugRenderer.setProjectionMatrix(cam.combined);
+			debugRenderer.begin(ShapeType.Rectangle);
+			debugRenderer.rect(e.getX() - f, e.getY() - f, f * 2, f * 2);
+			debugRenderer.end();
+		}
+	}
+
 	public void setSize(int width, int height) {
 		ppuX = width / CAMERA_WIDTH;
 		ppuY = height / CAMERA_HEIGHT;

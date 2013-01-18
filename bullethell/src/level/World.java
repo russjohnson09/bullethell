@@ -29,9 +29,9 @@ public class World {
 		checkEnemyCollision();
 		updateEnemies(delta);
 		player.update(delta);
-		level.update(delta);
 		updatePlayerBullets(delta);
 		updateEnemyBullets(delta);
+		level.update(delta);
 		render();
 
 	}
@@ -141,6 +141,7 @@ public class World {
 
 	private void renderPlayer() {
 		renderer.render(player);
+		renderer.render(player, player.getR2());
 
 	}
 

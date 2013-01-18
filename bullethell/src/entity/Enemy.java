@@ -47,12 +47,13 @@ public class Enemy implements Entity {
 	public Enemy() {
 		x = ox = 0;
 		y = oy = 40;
-		r = 1;
-		health = 10;
-		path = new Path01(10, 0, 10, -5);
+		r = 2;
+		health = 3;
+		path = new Path01(10, 0, -10, 5);
 		w = h = r;
 		texture = Textures.ENEMY01;
-		this.bulletScript = Barrage.fire(1, 10);
+		this.bulletScript = Barrage.fire(0.5f, 100, 0.5f, new Path01(0, 0, -10,
+				0), Textures.BULLET01);
 
 	}
 
@@ -61,6 +62,13 @@ public class Enemy implements Entity {
 		path.update(delta);
 		x = ox + path.getX();
 		y = oy + path.getY();
+
+		Bullet b = (Bullet) bulletScript.update(delta);
+		if (b != null) {
+			b.setOx(x);
+			b.setOy(y);
+			bullets.add(b);
+		}
 	}
 
 	public static Array<Bullet> getBullets() {
@@ -168,7 +176,14 @@ public class Enemy implements Entity {
 	}
 
 	public boolean isFin() {
-		return isFin;
+		if (health < 0) {
+			kills++;
+			return true;
+		} else {
+			return isFin || (x > X_BOUND + X_MARGIN || y > Y_BOUND + Y_MARGIN)
+					|| (x < -X_MARGIN || y < -Y_MARGIN);
+		}
+
 	}
 
 	public void setFin(boolean isFin) {
