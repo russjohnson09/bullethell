@@ -6,7 +6,6 @@ import render.Renderer;
 import utils.LinkedList;
 import barrage.Barrage;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -35,8 +34,6 @@ public class Enemy implements Entity {
 	protected float r;
 	protected int health;
 	protected Path path;
-	protected float w;
-	protected float h;
 
 	protected LinkedList bulletScript = new LinkedList();
 
@@ -45,7 +42,7 @@ public class Enemy implements Entity {
 	public Enemy() {
 		x = ox = 0;
 		y = oy = 40;
-		r = h = w = 2;
+		r = 2;
 		health = 3;
 		path = new Path01(10, 0, -10, 5);
 		this.bulletScript = Barrage.fire(0.5f, 100, 0.5f, new Path01(0, 0, -10,
@@ -54,10 +51,10 @@ public class Enemy implements Entity {
 	}
 
 	public Enemy(float x, float y, float r, int health, Path path,
-			Texture texture, LinkedList bulletScript) {
+			LinkedList bulletScript) {
 		this.x = ox = x;
 		this.y = oy = y;
-		this.r = h = w = r;
+		this.r = r;
 		this.health = health;
 		this.path = path;
 		this.bulletScript = bulletScript;
@@ -160,26 +157,6 @@ public class Enemy implements Entity {
 
 	public void setPath(Path path) {
 		this.path = path;
-	}
-
-	@Override
-	public float getW() {
-		return w;
-	}
-
-	@Override
-	public void setW(float w) {
-		this.w = w;
-	}
-
-	@Override
-	public float getH() {
-		return h;
-	}
-
-	@Override
-	public void setH(float h) {
-		this.h = h;
 	}
 
 	public LinkedList getBulletScript() {

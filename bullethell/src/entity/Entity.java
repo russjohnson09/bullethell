@@ -13,14 +13,6 @@ public interface Entity extends Path {
 
 	void setR(float r);
 
-	float getH();
-
-	void setH(float h);
-
-	float getW();
-
-	void setW(float w);
-
 	boolean isFin();
 
 	void setFin(boolean b);

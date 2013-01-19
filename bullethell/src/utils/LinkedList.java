@@ -1,6 +1,6 @@
 package utils;
 
-import entity.Entity;
+import path.Path;
 
 /**
  * Implementation of LinkedList
@@ -22,15 +22,15 @@ public class LinkedList {
 	 * Updates the linked list returning an entity if it is time to spawn it and
 	 * null if we are doing nothing.
 	 */
-	public Entity update(float delta) {
+	public Path update(float delta) {
 		if (head != null) {
 			head.update(delta);
 			if (head.getDelay() < 0) {
 
-				Entity entity = head.getEntity();
+				Path path = head.getPath();
 				head = head.getNext();
 
-				return entity;
+				return path;
 			}
 		}
 

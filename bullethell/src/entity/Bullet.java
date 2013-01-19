@@ -27,8 +27,6 @@ public class Bullet implements Entity {
 	protected float y;
 	protected float r;
 	protected Path path;
-	protected float w;
-	protected float h;
 
 	protected boolean isGrazed = false;
 
@@ -130,26 +128,6 @@ public class Bullet implements Entity {
 
 	public void setPath(Path path) {
 		this.path = path;
-	}
-
-	@Override
-	public float getW() {
-		return w;
-	}
-
-	@Override
-	public void setW(float w) {
-		this.w = w;
-	}
-
-	@Override
-	public float getH() {
-		return h;
-	}
-
-	@Override
-	public void setH(float h) {
-		this.h = h;
 	}
 
 	public boolean isGrazed() {

@@ -33,8 +33,6 @@ public class Player implements Entity {
 	private float r2;
 	private int health;
 	private int lives;
-	private float w;
-	private float h;
 
 	private float bulletR = 0.2f;
 	private float bulletSpeed = 50;
@@ -51,7 +49,6 @@ public class Player implements Entity {
 		health = MAX_HEALTH = 10;
 		invincible = 3;
 		lives = 3;
-		w = h = 1.5f * r;
 
 	}
 
@@ -178,26 +175,6 @@ public class Player implements Entity {
 
 	public void setLives(int lives) {
 		this.lives = lives;
-	}
-
-	@Override
-	public float getW() {
-		return w;
-	}
-
-	@Override
-	public void setW(float w) {
-		this.w = w;
-	}
-
-	@Override
-	public float getH() {
-		return h;
-	}
-
-	@Override
-	public void setH(float h) {
-		this.h = h;
 	}
 
 	public float getBulletR() {

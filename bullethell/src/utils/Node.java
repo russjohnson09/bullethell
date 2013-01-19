@@ -1,6 +1,6 @@
 package utils;
 
-import entity.Entity;
+import path.Path;
 
 /**
  * Implementation of Node.
@@ -10,17 +10,17 @@ import entity.Entity;
  */
 public class Node {
 
-	private Entity entity;
+	private Path path;
 	private Node next;
 	private float delay;
 
-	public Node(Entity entity, float delay) {
-		this.entity = entity;
+	public Node(Path path, float delay) {
+		this.path = path;
 		this.delay = delay;
 	}
 
-	public Entity getEntity() {
-		return entity;
+	public Path getPath() {
+		return path;
 	}
 
 	public Node getNext() {

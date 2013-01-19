@@ -1,5 +1,7 @@
 package level;
 
+import path.Path01;
+import path.PathList;
 import utils.LinkedList;
 import utils.Node;
 import barrage.Enemies;
@@ -22,7 +24,20 @@ public class Level {
 	private Array<Enemy> enemies = new Array<Enemy>();
 
 	public Level() {
-		demo();
+		// demo();
+		demo2();
+
+	}
+
+	private void demo2() {
+		PathList path;
+		path = new PathList();
+		path.add(new Path01(0, 0, -10, 0), 0f);
+		path.add(new Path01(0, 0, 10, 0), 2f);
+
+		Enemy enemy;
+		enemy = new Enemy(10, 30, 1, 5, path, new LinkedList());
+		enemyScript.add(new Node(enemy, 1));
 
 	}
 
@@ -34,15 +49,17 @@ public class Level {
 		enemyScript.add(new Node(new Enemy(), 0));
 		enemyScript.add(new Node(Enemies.Swooping(), 1));
 		enemyScript.add(new Node(new Enemy(), 1));
-		for (int i = 0; i < 10; i++) {
-			enemyScript.add(new Node(Enemies.Swooping(), 1));
-		}
-		// Path path;
-		// path = new PathList();
-		//
-		// Enemy enemy;
-		// enemy = new Enemy(2, 0, 0, 0, enemy, null, new LinkedList());
-		// enemyScript.add(new Node(new Enemy(), 1));
+		// for (int i = 0; i < 10; i++) {
+		// enemyScript.add(new Node(Enemies.Swooping(), 1));
+		// }
+		PathList path;
+		path = new PathList();
+		path.add(new Path01(0, 0, -10, 0), 0f);
+		path.add(new Path01(0, 0, 10, 0), 5f);
+
+		Enemy enemy;
+		enemy = new Enemy(10, 50, 1, 5, path, new LinkedList());
+		enemyScript.add(new Node(enemy, 1));
 
 	}
 

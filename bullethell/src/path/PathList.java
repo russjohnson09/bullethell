@@ -1,6 +1,7 @@
 package path;
 
 import utils.LinkedList;
+import utils.Node;
 
 public class PathList implements Path {
 
@@ -36,19 +37,19 @@ public class PathList implements Path {
 	@Override
 	public void update(float delta) {
 		Path p = pathList.update(delta);
-		if (path != null) {
+		if (p != null) {
 			ox = path.getX();
 			oy = path.getY();
 			path = p;
 		}
+		path.update(delta);
 		x = ox + path.getX();
 		y = oy + path.getY();
 
 	}
 
 	public void add(Path path, float delay) {
-		// TODO
-		// pathList.add(new Node(path, delay));
+		pathList.add(new Node(path, delay));
 	}
 
 }
