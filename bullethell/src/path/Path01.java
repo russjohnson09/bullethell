@@ -33,7 +33,6 @@ public class Path01 implements Path {
 		y += vY * delta;
 		vX += aX * delta;
 		vY += aY * delta;
-
 	}
 
 	public float getX() {
