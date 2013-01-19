@@ -6,7 +6,6 @@ import render.Renderer;
 import states.PosNegZero;
 import utils.Textures;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
 public class Player implements Entity {
@@ -37,7 +36,6 @@ public class Player implements Entity {
 	private int lives;
 	private float w;
 	private float h;
-	private Texture texture;
 
 	private float bulletR = 0.2f;
 	private float bulletSpeed = 50;
@@ -45,7 +43,7 @@ public class Player implements Entity {
 	public Player() {
 		x = 5;
 		y = 2;
-		r = 1;
+		r = 0.2f;
 		r2 = 2;
 		SPEED = 20;
 		stateX = PosNegZero.ZERO;
@@ -55,7 +53,6 @@ public class Player implements Entity {
 		invincible = 3;
 		lives = 3;
 		w = h = 1.5f * r;
-		texture = Textures.PLAYER;
 
 	}
 
@@ -150,10 +147,12 @@ public class Player implements Entity {
 		this.isSlow = isSlow;
 	}
 
+	@Override
 	public float getR() {
 		return r;
 	}
 
+	@Override
 	public void setR(float r) {
 		this.r = r;
 	}
@@ -182,28 +181,24 @@ public class Player implements Entity {
 		this.lives = lives;
 	}
 
+	@Override
 	public float getW() {
 		return w;
 	}
 
+	@Override
 	public void setW(float w) {
 		this.w = w;
 	}
 
+	@Override
 	public float getH() {
 		return h;
 	}
 
+	@Override
 	public void setH(float h) {
 		this.h = h;
-	}
-
-	public Texture getTexture() {
-		return texture;
-	}
-
-	public void setTexture(Texture texture) {
-		this.texture = texture;
 	}
 
 	public float getBulletR() {
@@ -222,10 +217,12 @@ public class Player implements Entity {
 		this.bulletSpeed = bulletSpeed;
 	}
 
+	@Override
 	public void setX(float x) {
 		this.x = x;
 	}
 
+	@Override
 	public void setY(float y) {
 		this.y = y;
 	}

@@ -78,13 +78,13 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public void resize(int width, int height) {
-		renderer.setSize(width, height);
+		// TODO
 
 	}
 
 	@Override
 	public void show() {
-		renderer = new Renderer(true);
+		renderer = new Renderer();
 		world = new World(renderer);
 		Gdx.input.setInputProcessor(this);
 

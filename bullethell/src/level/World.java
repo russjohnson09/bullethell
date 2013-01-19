@@ -37,7 +37,7 @@ public class World {
 		level.update(delta);
 		render();
 
-		rotation += delta;
+		rotation += delta * 6000f;
 
 	}
 
@@ -125,8 +125,7 @@ public class World {
 
 	private void renderEnemyBullet() {
 		for (Bullet bullet : Enemy.getBullets()) {
-			renderer.rotatingTriangle(bullet, rotation);
-			renderer.render(bullet);
+			renderer.rotatingTriangle(bullet, rotation, false);
 		}
 
 	}

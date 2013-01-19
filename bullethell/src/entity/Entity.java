@@ -2,8 +2,6 @@ package entity;
 
 import path.Path;
 
-import com.badlogic.gdx.graphics.Texture;
-
 /**
  * An Entity is the most basic element in the game.
  * 
@@ -22,10 +20,6 @@ public interface Entity extends Path {
 	float getW();
 
 	void setW(float w);
-
-	Texture getTexture();
-
-	void setTexture(Texture texture);
 
 	boolean isFin();
 
