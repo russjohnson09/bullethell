@@ -3,9 +3,6 @@ package barrage;
 import path.Path01;
 import utils.LinkedList;
 import utils.Node;
-
-import com.badlogic.gdx.graphics.Texture;
-
 import entity.Bullet;
 
 /**
@@ -24,13 +21,13 @@ public class Barrage {
 	 * @return
 	 */
 	public static LinkedList fire(float delay, int numberOfBullets, float r,
-			Path01 path, Texture texture) {
+			Path01 path) {
 		LinkedList list = new LinkedList();
-		Bullet b = new Bullet(0, 0, r, path.copy(), texture);
+		Bullet b = new Bullet(0, 0, r, path.copy());
 		list.add(new Node(b, 0));
 
 		for (int i = 0; i < numberOfBullets - 1; i++) {
-			b = new Bullet(0, 0, r, path.copy(), texture);
+			b = new Bullet(0, 0, r, path.copy());
 			list.add(new Node(b, delay));
 		}
 		return list;

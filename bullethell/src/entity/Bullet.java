@@ -3,9 +3,6 @@ package entity;
 import path.Path;
 import path.Path01;
 import render.Renderer;
-import utils.Textures;
-
-import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Basic implementation of bullet goes down from (x,y)
@@ -32,18 +29,16 @@ public class Bullet implements Entity {
 	protected Path path;
 	protected float w;
 	protected float h;
-	protected Texture texture;
 
 	protected boolean isGrazed = false;
 
 	protected boolean isFin = false;
 
-	public Bullet(float x, float y, float r, Path path, Texture texture) {
+	public Bullet(float x, float y, float r, Path path) {
 		this.x = ox = x;
 		this.y = oy = y;
 		this.r = r;
 		this.path = path;
-		this.texture = texture;
 
 	}
 
@@ -52,7 +47,6 @@ public class Bullet implements Entity {
 		y = oy = 40;
 		r = 1;
 		path = new Path01(0, 0, -10, 0);
-		texture = Textures.BULLET01;
 
 	}
 
@@ -100,26 +94,32 @@ public class Bullet implements Entity {
 		this.oy = oy;
 	}
 
+	@Override
 	public float getX() {
 		return x;
 	}
 
+	@Override
 	public void setX(float x) {
 		this.x = x;
 	}
 
+	@Override
 	public float getY() {
 		return y;
 	}
 
+	@Override
 	public void setY(float y) {
 		this.y = y;
 	}
 
+	@Override
 	public float getR() {
 		return r;
 	}
 
+	@Override
 	public void setR(float r) {
 		this.r = r;
 	}
@@ -132,28 +132,24 @@ public class Bullet implements Entity {
 		this.path = path;
 	}
 
+	@Override
 	public float getW() {
 		return w;
 	}
 
+	@Override
 	public void setW(float w) {
 		this.w = w;
 	}
 
+	@Override
 	public float getH() {
 		return h;
 	}
 
+	@Override
 	public void setH(float h) {
 		this.h = h;
-	}
-
-	public Texture getTexture() {
-		return texture;
-	}
-
-	public void setTexture(Texture texture) {
-		this.texture = texture;
 	}
 
 	public boolean isGrazed() {
@@ -166,6 +162,6 @@ public class Bullet implements Entity {
 
 	@Override
 	public String toString() {
-		return String.format("x: %.2f\ty: %.2f\tTexture: " + texture, x, y);
+		return String.format("x: %.2f\ty: %.2f\t", x, y);
 	}
 }

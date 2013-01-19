@@ -4,7 +4,6 @@ import path.Path;
 import path.Path01;
 import render.Renderer;
 import states.PosNegZero;
-import utils.Textures;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -81,7 +80,7 @@ public class Player implements Entity {
 			y -= move * delta;
 		if (isFiring && timeTilFire < 0) {
 			Path path = new Path01(0, 0, 40, 0);
-			bullets.add(new Bullet(x, y, 0.5f, path, Textures.BULLET01));
+			bullets.add(new Bullet(x, y, 0.5f, path));
 			timeTilFire = DELAY;
 		}
 		if (health < 0) {

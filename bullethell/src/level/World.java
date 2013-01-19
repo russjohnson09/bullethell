@@ -125,27 +125,27 @@ public class World {
 
 	private void renderEnemyBullet() {
 		for (Bullet bullet : Enemy.getBullets()) {
-			renderer.rotatingTriangle(bullet, rotation, false);
+			renderer.enemyBullet(bullet, rotation);
 		}
 
 	}
 
 	private void renderPlayerBullet() {
 		for (Bullet bullet : player.getBullets()) {
-			renderer.render(bullet);
+			renderer.playerBullet(bullet, rotation);
 		}
 
 	}
 
 	private void renderEnemy() {
 		for (Enemy enemy : level.getEnemies()) {
-			renderer.render(enemy);
+			renderer.enemy(enemy);
 		}
 
 	}
 
 	private void renderPlayer() {
-		renderer.renderPlayer(player);
+		renderer.player(player);
 
 	}
 

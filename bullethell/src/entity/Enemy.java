@@ -4,7 +4,6 @@ import path.Path;
 import path.Path01;
 import render.Renderer;
 import utils.LinkedList;
-import utils.Textures;
 import barrage.Barrage;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -38,7 +37,6 @@ public class Enemy implements Entity {
 	protected Path path;
 	protected float w;
 	protected float h;
-	protected Texture texture;
 
 	protected LinkedList bulletScript = new LinkedList();
 
@@ -50,9 +48,8 @@ public class Enemy implements Entity {
 		r = h = w = 2;
 		health = 3;
 		path = new Path01(10, 0, -10, 5);
-		texture = Textures.ENEMY01;
 		this.bulletScript = Barrage.fire(0.5f, 100, 0.5f, new Path01(0, 0, -10,
-				0), Textures.BULLET01);
+				0));
 
 	}
 
@@ -119,26 +116,32 @@ public class Enemy implements Entity {
 		this.oy = oy;
 	}
 
+	@Override
 	public float getX() {
 		return x;
 	}
 
+	@Override
 	public void setX(float x) {
 		this.x = x;
 	}
 
+	@Override
 	public float getY() {
 		return y;
 	}
 
+	@Override
 	public void setY(float y) {
 		this.y = y;
 	}
 
+	@Override
 	public float getR() {
 		return r;
 	}
 
+	@Override
 	public void setR(float r) {
 		this.r = r;
 	}
@@ -159,28 +162,24 @@ public class Enemy implements Entity {
 		this.path = path;
 	}
 
+	@Override
 	public float getW() {
 		return w;
 	}
 
+	@Override
 	public void setW(float w) {
 		this.w = w;
 	}
 
+	@Override
 	public float getH() {
 		return h;
 	}
 
+	@Override
 	public void setH(float h) {
 		this.h = h;
-	}
-
-	public Texture getTexture() {
-		return texture;
-	}
-
-	public void setTexture(Texture texture) {
-		this.texture = texture;
 	}
 
 	public LinkedList getBulletScript() {
@@ -191,6 +190,7 @@ public class Enemy implements Entity {
 		this.bulletScript = bulletScript;
 	}
 
+	@Override
 	public boolean isFin() {
 		if (health < 0) {
 			kills++;
@@ -202,6 +202,7 @@ public class Enemy implements Entity {
 
 	}
 
+	@Override
 	public void setFin(boolean isFin) {
 		this.isFin = isFin;
 	}
