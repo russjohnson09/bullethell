@@ -51,14 +51,12 @@ public class Renderer {
 	public void renderPlayer(Player e) {
 		if (debug) {
 			debugRenderer.setProjectionMatrix(cam.combined);
-			debugRenderer.begin(ShapeType.Rectangle);
+			debugRenderer.begin(ShapeType.Circle);
 			debugRenderer.identity();
 			debugRenderer.translate(e.getX(), e.getY(), 0);
 			debugRenderer.rotate(0, 0, 1, 45);
-			debugRenderer
-					.rect(-e.getR(), -e.getR(), e.getR() * 2, e.getR() * 2);
-			debugRenderer.rect(-e.getR2(), -e.getR2(), e.getR2() * 2,
-					e.getR2() * 2);
+			debugRenderer.circle(0, 0, e.getR(), 6);
+			debugRenderer.circle(0, 0, e.getR2(), 6);
 
 			debugRenderer.end();
 		}
