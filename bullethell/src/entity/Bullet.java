@@ -14,8 +14,8 @@ public class Bullet implements Entity {
 
 	public static final float X_BOUND = Renderer.CAMERA_WIDTH;
 	public static final float Y_BOUND = Renderer.CAMERA_HEIGHT;
-	public static final float X_MARGIN = X_BOUND * 1.1f;
-	public static final float Y_MARGIN = Y_BOUND * 1.1f;
+	public static final float X_MARGIN = X_BOUND * .1f;
+	public static final float Y_MARGIN = Y_BOUND * .1f;
 
 	// number of bullets grazed (used in score)
 	protected static int numberGraze = 0;

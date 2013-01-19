@@ -52,6 +52,17 @@ public class LinkedList {
 
 	}
 
+	public void add(LinkedList list) {
+		if (list != null && list.tail != null)
+			if (head == null) {
+				head = list.head;
+				tail = list.tail;
+			} else {
+				tail = list.tail;
+			}
+
+	}
+
 	public boolean isEmpty() {
 		return head == null;
 	}

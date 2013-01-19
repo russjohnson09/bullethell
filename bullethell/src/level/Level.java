@@ -5,6 +5,7 @@ import path.PathList;
 import utils.LinkedList;
 import utils.Node;
 import barrage.Enemies;
+import barrage.Wave;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -25,7 +26,9 @@ public class Level {
 
 	public Level() {
 		// demo();
-		demo2();
+		// demo2();
+		enemyScript.add(Wave.basic());
+		enemyScript.add(new Node(Wave.kaguya(), 1));
 
 	}
 
