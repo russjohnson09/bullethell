@@ -1,7 +1,6 @@
 package path;
 
 import utils.LinkedList;
-import utils.Node;
 
 public class PathList implements Path {
 
@@ -48,7 +47,8 @@ public class PathList implements Path {
 	}
 
 	public void add(Path path, float delay) {
-		pathList.add(new Node(path, delay));
+		// TODO
+		// pathList.add(new Node(path, delay));
 	}
 
 }

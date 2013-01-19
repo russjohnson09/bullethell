@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import entity.Bullet;
 import entity.Entity;
+import entity.Player;
 
 public class Renderer {
 
@@ -35,8 +37,29 @@ public class Renderer {
 		if (debug) {
 			debugRenderer.setProjectionMatrix(cam.combined);
 			debugRenderer.begin(ShapeType.Rectangle);
-			debugRenderer.rect(e.getX() - e.getR(), e.getY() - e.getR(),
-					e.getR() * 2, e.getR() * 2);
+			debugRenderer.identity();
+			debugRenderer.translate(e.getX(), e.getY(), 0);
+			debugRenderer.rotate(0, 0, 1, 45);
+			debugRenderer
+					.rect(-e.getR(), -e.getR(), e.getR() * 2, e.getR() * 2);
+
+			debugRenderer.end();
+		}
+
+	}
+
+	public void renderPlayer(Player e) {
+		if (debug) {
+			debugRenderer.setProjectionMatrix(cam.combined);
+			debugRenderer.begin(ShapeType.Rectangle);
+			debugRenderer.identity();
+			debugRenderer.translate(e.getX(), e.getY(), 0);
+			debugRenderer.rotate(0, 0, 1, 45);
+			debugRenderer
+					.rect(-e.getR(), -e.getR(), e.getR() * 2, e.getR() * 2);
+			debugRenderer.rect(-e.getR2(), -e.getR2(), e.getR2() * 2,
+					e.getR2() * 2);
+
 			debugRenderer.end();
 		}
 
@@ -54,6 +77,19 @@ public class Renderer {
 	public void setSize(int width, int height) {
 		ppuX = width / CAMERA_WIDTH;
 		ppuY = height / CAMERA_HEIGHT;
+
+	}
+
+	public void rotatingTriangle(Bullet bullet, float rotation) {
+		debugRenderer.setProjectionMatrix(cam.combined);
+		debugRenderer.begin(ShapeType.Triangle);
+		debugRenderer.identity();
+		debugRenderer.translate(bullet.getX(), bullet.getY(), 0);
+		debugRenderer.rotate(0, 0, 1, rotation);
+		debugRenderer.triangle(-bullet.getR(), -bullet.getR(), 0,
+				bullet.getR(), bullet.getR(), bullet.getR());
+
+		debugRenderer.end();
 
 	}
 

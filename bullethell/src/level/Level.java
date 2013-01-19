@@ -1,9 +1,8 @@
 package level;
 
-import path.Path;
-import path.PathList;
 import utils.LinkedList;
 import utils.Node;
+import barrage.Enemies;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -31,19 +30,19 @@ public class Level {
 	 * Demonstration of enemies with paths.
 	 */
 	private void demo() {
-		// enemyScript.add(new Node(Enemies.Swooping(), 0));
-		// enemyScript.add(new Node(new Enemy(), 0));
-		// enemyScript.add(new Node(Enemies.Swooping(), 1));
-		// enemyScript.add(new Node(new Enemy(), 1));
-		// for (int i = 0; i < 10; i++) {
-		// enemyScript.add(new Node(Enemies.Swooping(), 1));
-		// }
-		Path path;
-		path = new PathList();
-
-		Enemy enemy;
-		enemy = new Enemy(2, 0, 0, 0, enemy, null, new LinkedList());
+		enemyScript.add(new Node(Enemies.Swooping(), 0));
+		enemyScript.add(new Node(new Enemy(), 0));
+		enemyScript.add(new Node(Enemies.Swooping(), 1));
 		enemyScript.add(new Node(new Enemy(), 1));
+		for (int i = 0; i < 10; i++) {
+			enemyScript.add(new Node(Enemies.Swooping(), 1));
+		}
+		// Path path;
+		// path = new PathList();
+		//
+		// Enemy enemy;
+		// enemy = new Enemy(2, 0, 0, 0, enemy, null, new LinkedList());
+		// enemyScript.add(new Node(new Enemy(), 1));
 
 	}
 

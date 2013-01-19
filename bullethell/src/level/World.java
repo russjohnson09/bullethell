@@ -14,6 +14,9 @@ public class World {
 	private Renderer renderer;
 	private Player player;
 
+	// used for spinning bullets
+	private float rotation = 0;
+
 	public World(Renderer renderer) {
 		level = new Level();
 		this.renderer = renderer;
@@ -33,6 +36,8 @@ public class World {
 		updateEnemyBullets(delta);
 		level.update(delta);
 		render();
+
+		rotation += delta;
 
 	}
 
@@ -120,6 +125,7 @@ public class World {
 
 	private void renderEnemyBullet() {
 		for (Bullet bullet : Enemy.getBullets()) {
+			renderer.rotatingTriangle(bullet, rotation);
 			renderer.render(bullet);
 		}
 
@@ -140,8 +146,7 @@ public class World {
 	}
 
 	private void renderPlayer() {
-		renderer.render(player);
-		renderer.render(player, player.getR2());
+		renderer.renderPlayer(player);
 
 	}
 
