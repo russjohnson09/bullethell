@@ -58,6 +58,7 @@ public class LinkedList {
 				head = list.head;
 				tail = list.tail;
 			} else {
+				tail.setNext(list.head);
 				tail = list.tail;
 			}
 
