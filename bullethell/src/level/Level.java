@@ -25,9 +25,6 @@ public class Level {
 	private Array<Enemy> enemies = new Array<Enemy>();
 
 	public Level() {
-		// demo();
-		// demo2();
-		enemyScript.add(Wave.basic());
 		enemyScript.add(new Node(Wave.kaguya(), 1));
 
 	}
@@ -52,9 +49,7 @@ public class Level {
 		enemyScript.add(new Node(new Enemy(), 0));
 		enemyScript.add(new Node(Enemies.Swooping(), 1));
 		enemyScript.add(new Node(new Enemy(), 1));
-		// for (int i = 0; i < 10; i++) {
-		// enemyScript.add(new Node(Enemies.Swooping(), 1));
-		// }
+
 		PathList path;
 		path = new PathList();
 		path.add(new Path01(0, 0, -10, 0), 0f);

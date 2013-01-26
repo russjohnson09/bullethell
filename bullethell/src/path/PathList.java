@@ -38,8 +38,8 @@ public class PathList implements Path {
 	public void update(float delta) {
 		Path p = pathList.update(delta);
 		if (p != null) {
-			ox = path.getX();
-			oy = path.getY();
+			ox = x;
+			oy = y;
 			path = p;
 		}
 		path.update(delta);

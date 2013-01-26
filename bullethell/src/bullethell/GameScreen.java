@@ -32,6 +32,7 @@ public class GameScreen implements Screen, InputProcessor {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		world.update(delta);
+
 		System.out.println(world);
 
 		updatePlayerState();

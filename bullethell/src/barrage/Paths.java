@@ -9,4 +9,8 @@ public class Paths {
 		return new Path01((x2 - x1) / time, 0, (y2 - y1) / time, 0);
 	}
 
+	public static Path01 basic2(float x1, float y1, float x2, float y2) {
+		return new Path01((x2 - x1), 0, (y2 - y1), 0);
+	}
+
 }
