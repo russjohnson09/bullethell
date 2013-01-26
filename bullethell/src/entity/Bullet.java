@@ -44,7 +44,7 @@ public class Bullet implements Entity {
 		x = ox = 5;
 		y = oy = 40;
 		r = 1;
-		path = new Path01(0, 0, -10, 0);
+		path = new Path01(0, -10);
 
 	}
 

@@ -1,6 +1,5 @@
 package barrage;
 
-import path.Path;
 import path.PathList;
 import utils.LinkedList;
 import utils.Node;
@@ -32,9 +31,7 @@ public class Wave {
 		path.add(Paths.basic2(15, 40, 6, 35), 1f);
 
 		LinkedList bullets = new LinkedList();
-		
-		 Bullet(float x, float y, float r, Path path)
-		
+
 		bullets.add(new Node(new Bullet(), 2f));
 
 		return new Enemy(3, 45, 1, 10, path, bullets);

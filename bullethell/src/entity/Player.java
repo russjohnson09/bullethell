@@ -76,7 +76,7 @@ public class Player implements Entity {
 		if (stateY == PosNegZero.NEG && y > 0)
 			y -= move * delta;
 		if (isFiring && timeTilFire < 0) {
-			Path path = new Path01(0, 0, 40, 0);
+			Path path = new Path01(0, 40);
 			bullets.add(new Bullet(x, y, 0.5f, path));
 			timeTilFire = DELAY;
 		}

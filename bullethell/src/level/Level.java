@@ -1,6 +1,5 @@
 package level;
 
-import path.Path01;
 import path.PathList;
 import utils.LinkedList;
 import utils.Node;
@@ -32,8 +31,6 @@ public class Level {
 	private void demo2() {
 		PathList path;
 		path = new PathList();
-		path.add(new Path01(0, 0, -10, 0), 0f);
-		path.add(new Path01(0, 0, 10, 0), 2f);
 
 		Enemy enemy;
 		enemy = new Enemy(10, 30, 1, 5, path, new LinkedList());
@@ -52,8 +49,6 @@ public class Level {
 
 		PathList path;
 		path = new PathList();
-		path.add(new Path01(0, 0, -10, 0), 0f);
-		path.add(new Path01(0, 0, 10, 0), 5f);
 
 		Enemy enemy;
 		enemy = new Enemy(10, 50, 1, 5, path, new LinkedList());

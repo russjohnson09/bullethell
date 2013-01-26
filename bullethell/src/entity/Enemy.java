@@ -44,9 +44,8 @@ public class Enemy implements Entity {
 		y = oy = 40;
 		r = 2;
 		health = 3;
-		path = new Path01(10, 0, -10, 5);
-		this.bulletScript = Barrage.fire(0.5f, 100, 0.5f, new Path01(0, 0, -10,
-				0));
+		path = new Path01(10, 0);
+		this.bulletScript = Barrage.fire(0.5f, 100, 0.5f, new Path01(0, -10));
 
 	}
 

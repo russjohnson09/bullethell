@@ -10,7 +10,7 @@ public class PathList implements Path {
 	private float oy = 0;
 	private float x;
 	private float y;
-	Path path = new Path01(0, 0, 0, 0);
+	Path path = new Path01(0, 0);
 
 	@Override
 	public float getX() {
