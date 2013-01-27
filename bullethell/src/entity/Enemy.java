@@ -31,6 +31,9 @@ public class Enemy implements Entity {
 
 	protected float x;
 	protected float y;
+
+	public Pos pos;
+
 	protected float r;
 	protected int health;
 	protected Path path;
@@ -64,6 +67,9 @@ public class Enemy implements Entity {
 		path.update(delta);
 		x = ox + path.getX();
 		y = oy + path.getY();
+
+		pos.x = x;
+		pos.y = y;
 
 		if (inBounds()) {
 			Bullet b = (Bullet) bulletScript.update(delta);
