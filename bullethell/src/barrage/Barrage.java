@@ -1,9 +1,11 @@
 package barrage;
 
 import path.Path01;
+import render.Renderer;
 import utils.LinkedList;
 import utils.Node;
 import entity.Bullet;
+import entity.Enemy;
 
 /**
  * Contains convenience methods for various enemy types and bullets etc.
@@ -33,4 +35,31 @@ public class Barrage {
 		return list;
 	}
 
+	public static LinkedList shikiBarrage() {
+		LinkedList list = new LinkedList();
+		Bullet b = new Bullet();
+		return list;
+	}
+
+	/*
+	 * A shower of bullets.
+	 */
+	public static void raining(float x, float r, float speed) {
+
+		for (int i = 1; i < Renderer.CAMERA_WIDTH; i++) {
+			if (Math.abs(((float) i) - x) > r) {
+				Enemy.getBullets().add(
+						new Bullet(i, Renderer.CAMERA_HEIGHT - 1, .9f,
+								new Path01(0, speed)));
+			}
+		}
+
+		// for (int i = 1; i < Renderer.CAMERA_WIDTH * 2; i++) {
+		// if (Math.abs(i / 2f - x) > r) {
+		// Enemy.getBullets().add(
+		// new Bullet(i / 2f, Renderer.CAMERA_HEIGHT - 1, 0.4f,
+		// new Path01(0, -speed)));
+		// }
+		// }
+	}
 }

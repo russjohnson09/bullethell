@@ -1,10 +1,8 @@
 package level;
 
-import path.PathList;
 import utils.LinkedList;
 import utils.Node;
 import barrage.Enemies;
-import barrage.Wave;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -24,35 +22,7 @@ public class Level {
 	private Array<Enemy> enemies = new Array<Enemy>();
 
 	public Level() {
-		enemyScript.add(new Node(Wave.kaguya(), 1));
-
-	}
-
-	private void demo2() {
-		PathList path;
-		path = new PathList();
-
-		Enemy enemy;
-		enemy = new Enemy(10, 30, 1, 5, path, new LinkedList());
-		enemyScript.add(new Node(enemy, 1));
-
-	}
-
-	/**
-	 * Demonstration of enemies with paths.
-	 */
-	private void demo() {
-		enemyScript.add(new Node(Enemies.Swooping(), 0));
-		enemyScript.add(new Node(new Enemy(), 0));
-		enemyScript.add(new Node(Enemies.Swooping(), 1));
-		enemyScript.add(new Node(new Enemy(), 1));
-
-		PathList path;
-		path = new PathList();
-
-		Enemy enemy;
-		enemy = new Enemy(10, 50, 1, 5, path, new LinkedList());
-		enemyScript.add(new Node(enemy, 1));
+		enemyScript.add(new Node(Enemies.shiki(), 1));
 
 	}
 

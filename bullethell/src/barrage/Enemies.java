@@ -1,6 +1,9 @@
 package barrage;
 
-import path.Path01;
+import path.PathList;
+import utils.LinkedList;
+import utils.Node;
+import entity.Bullet;
 import entity.Enemy;
 
 /**
@@ -11,9 +14,23 @@ import entity.Enemy;
  */
 public class Enemies {
 
-	public static Enemy Swooping() {
-		return new Enemy(-1, Enemy.Y_BOUND + 1, 1, 3, new Path01(10, -10),
-				Barrage.fire(0.3f, 10000, 0.5f, new Path01(0, -10)));
+	public static Enemy shiki() {
+		PathList path = new PathList();
+		LinkedList bullets = new LinkedList();
+
+		Enemy shiki = new Enemy(3, 45, 1, 10, path, bullets);
+
+		path.add(Paths.basic3(3, 45, 12, 30), 0);
+		path.add(Paths.basic3(12, 30, 2, 30), 1f);
+		path.add(Paths.basic3(2, 30, 15, 40), 1f);
+		path.add(Paths.basic3(15, 40, 6, 35), 1f);
+
+		bullets.add(new Node(new Bullet(), 2f));
+
+		Barrage.raining(4, 1, -7);
+
+		return shiki;
+
 	}
 
 }
