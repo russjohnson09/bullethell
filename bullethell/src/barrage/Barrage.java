@@ -5,7 +5,6 @@ import render.Renderer;
 import utils.LinkedList;
 import utils.Node;
 import entity.Bullet;
-import entity.Enemy;
 
 /**
  * Contains convenience methods for various enemy types and bullets etc.
@@ -44,22 +43,16 @@ public class Barrage {
 	/*
 	 * A shower of bullets.
 	 */
-	public static void raining(float x, float r, float speed) {
+	public static LinkedList raining(float x, float r, float speed) {
 
+		LinkedList list = new LinkedList();
 		for (int i = 1; i < Renderer.CAMERA_WIDTH; i++) {
 			if (Math.abs(((float) i) - x) > r) {
-				Enemy.getBullets().add(
-						new Bullet(i, Renderer.CAMERA_HEIGHT - 1, .9f,
-								new Path01(0, speed)));
+				list.add(new Node(new Bullet(i, Renderer.CAMERA_HEIGHT - 1,
+						.9f, new Path01(0, speed)), 0));
 			}
 		}
 
-		// for (int i = 1; i < Renderer.CAMERA_WIDTH * 2; i++) {
-		// if (Math.abs(i / 2f - x) > r) {
-		// Enemy.getBullets().add(
-		// new Bullet(i / 2f, Renderer.CAMERA_HEIGHT - 1, 0.4f,
-		// new Path01(0, -speed)));
-		// }
-		// }
+		return list;
 	}
 }

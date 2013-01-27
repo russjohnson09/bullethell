@@ -4,6 +4,7 @@ import path.PathList;
 import utils.LinkedList;
 import utils.Node;
 import entity.Bullet;
+import entity.BulletScript;
 import entity.Enemy;
 
 /**
@@ -27,9 +28,16 @@ public class Enemies {
 
 		bullets.add(new Node(new Bullet(), 2f));
 
-		Barrage.raining(4, 1, -7);
+		bullets.add(Barrage.raining(4, 1, -7));
 
 		return shiki;
+
+	}
+
+	public static BulletScript bulletRain() {
+		LinkedList bullets = new LinkedList();
+		bullets.add(Barrage.raining(2, 1, -10));
+		return new BulletScript(new LinkedList());
 
 	}
 
