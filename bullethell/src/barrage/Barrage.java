@@ -43,13 +43,20 @@ public class Barrage {
 	/*
 	 * A shower of bullets.
 	 */
-	public static LinkedList raining(float x, float r, float speed) {
+	public static LinkedList raining(float x, float r, float speed, float delay) {
 
 		LinkedList list = new LinkedList();
-		for (int i = 1; i < Renderer.CAMERA_WIDTH; i++) {
+
+		int j = 1;
+		if (Math.abs(((float) j) - x) > r) {
+			list.add(new Node(new Bullet(j, Renderer.CAMERA_HEIGHT - 1, .9f,
+					new Path01(0, speed)), delay));
+		}
+
+		for (int i = 2; i < Renderer.CAMERA_WIDTH; i++) {
 			if (Math.abs(((float) i) - x) > r) {
 				list.add(new Node(new Bullet(i, Renderer.CAMERA_HEIGHT - 1,
-						.9f, new Path01(0, speed)), 0));
+						.9f, new Path01(0, speed)), -1));
 			}
 		}
 

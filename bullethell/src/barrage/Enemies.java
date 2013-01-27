@@ -26,9 +26,19 @@ public class Enemies {
 		path.add(Paths.basic3(2, 30, 15, 40), 1f);
 		path.add(Paths.basic3(15, 40, 6, 35), 1f);
 
-		bullets.add(new Node(new Bullet(), 2f));
+		for (int i = 0; i < 100; i++) {
+			path.add(Paths.basic3(0, 0, 10, 0), 1.5f);
+			path.add(Paths.basic3(0, 0, -10, 0), 1.5f);
+		}
 
-		bullets.add(Barrage.raining(4, 1, -7));
+		bullets.add(new Node(new Bullet(), 2));
+
+		float j;
+
+		for (int i = 0; i < 100; i++) {
+			j = (float) ((21 * Math.random()) + 2);
+			bullets.add(Barrage.raining(j, 2, -2, 2f));
+		}
 
 		return shiki;
 
@@ -36,7 +46,6 @@ public class Enemies {
 
 	public static BulletScript bulletRain() {
 		LinkedList bullets = new LinkedList();
-		bullets.add(Barrage.raining(2, 1, -10));
 		return new BulletScript(new LinkedList());
 
 	}

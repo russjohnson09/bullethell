@@ -68,9 +68,12 @@ public class Enemy implements Entity {
 		if (inBounds()) {
 			Bullet b = (Bullet) bulletScript.update(delta);
 			if (b != null) {
-				// b.setOx(x);
-				// b.setOy(y);
 				bullets.add(b);
+			}
+			b = (Bullet) bulletScript.update(0);
+			while (b != null) {
+				bullets.add(b);
+				b = (Bullet) bulletScript.update(0);
 			}
 		}
 	}
