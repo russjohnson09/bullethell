@@ -2,6 +2,7 @@ package entity;
 
 import path.Path;
 import path.Path01;
+import path.Pos;
 import render.Renderer;
 import utils.LinkedList;
 import barrage.Barrage;
@@ -26,11 +27,9 @@ public class Enemy implements Entity {
 	protected static int kills = 0;
 
 	// the original position of the enemy
-	protected float ox;
-	protected float oy;
+	protected Pos oPos;
 
-	protected float x;
-	protected float y;
+	protected Pos pos;
 	protected float r;
 	protected int health;
 	protected Path path;
@@ -40,8 +39,7 @@ public class Enemy implements Entity {
 	protected boolean isFin = false;
 
 	public Enemy() {
-		x = ox = 0;
-		y = oy = 40;
+		oPos = pos = new Pos(0, 40);
 		r = 2;
 		health = 3;
 		path = new Path01(10, 0);
@@ -51,8 +49,7 @@ public class Enemy implements Entity {
 
 	public Enemy(float x, float y, float r, int health, Path path,
 			LinkedList bulletScript) {
-		this.x = ox = x;
-		this.y = oy = y;
+		oPos = pos = new Pos(x, y);
 		this.r = r;
 		this.health = health;
 		this.path = path;
@@ -62,8 +59,8 @@ public class Enemy implements Entity {
 	@Override
 	public void update(float delta) {
 		path.update(delta);
-		x = ox + path.getX();
-		y = oy + path.getY();
+		pos.x = oPos.x + path.getPos().x;
+		pos.y = oPos.y + path.getPos().y;
 
 		if (inBounds()) {
 			Bullet b = (Bullet) bulletScript.update(delta);
@@ -79,7 +76,7 @@ public class Enemy implements Entity {
 	}
 
 	private boolean inBounds() {
-		return 0 < x && x < X_BOUND && 0 < y && y < Y_BOUND;
+		return 0 < pos.x && pos.x < X_BOUND && 0 < pos.y && pos.y < Y_BOUND;
 	}
 
 	public static Array<Bullet> getBullets() {
@@ -96,42 +93,6 @@ public class Enemy implements Entity {
 
 	public static void setKills(int kills) {
 		Enemy.kills = kills;
-	}
-
-	public float getOx() {
-		return ox;
-	}
-
-	public void setOx(float ox) {
-		this.ox = ox;
-	}
-
-	public float getOy() {
-		return oy;
-	}
-
-	public void setOy(float oy) {
-		this.oy = oy;
-	}
-
-	@Override
-	public float getX() {
-		return x;
-	}
-
-	@Override
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	@Override
-	public float getY() {
-		return y;
-	}
-
-	@Override
-	public void setY(float y) {
-		this.y = y;
 	}
 
 	@Override
@@ -174,10 +135,17 @@ public class Enemy implements Entity {
 			kills++;
 			return true;
 		} else {
-			return isFin || (x > X_BOUND + X_MARGIN || y > Y_BOUND + Y_MARGIN)
-					|| (x < -X_MARGIN || y < -Y_MARGIN);
+			return isFin
+					|| (pos.x > X_BOUND + X_MARGIN || pos.y > Y_BOUND
+							+ Y_MARGIN)
+					|| (pos.x < -X_MARGIN || pos.y < -Y_MARGIN);
 		}
 
+	}
+
+	@Override
+	public Pos getPos() {
+		return pos;
 	}
 
 	@Override
@@ -187,7 +155,7 @@ public class Enemy implements Entity {
 
 	@Override
 	public String toString() {
-		return String.format("x: %.2f\ty: %.2f", x, y);
+		return String.format("x: %.2f\ty: %.2f", pos.x, pos.y);
 	}
 
 }

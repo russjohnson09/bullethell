@@ -30,7 +30,7 @@ public class Renderer {
 		renderer.begin(ShapeType.Circle);
 		renderer.setColor(Color.RED);
 		renderer.identity();
-		renderer.translate(e.getX(), e.getY(), 0);
+		renderer.translate(e.getPos().x, e.getPos().y, 0);
 
 		renderer.circle(0, 0, e.getR(), 8);
 
@@ -42,7 +42,7 @@ public class Renderer {
 		renderer.begin(ShapeType.Circle);
 		renderer.setColor(Color.BLUE);
 		renderer.identity();
-		renderer.translate(player.getX(), player.getY(), 0);
+		renderer.translate(player.getPos().x, player.getPos().y, 0);
 
 		renderer.circle(0, 0, player.getR(), 6);
 		renderer.circle(0, 0, player.getR2(), 6);
@@ -56,7 +56,7 @@ public class Renderer {
 		renderer.setColor(Color.RED);
 
 		renderer.identity();
-		renderer.translate(bullet.getX(), bullet.getY(), 0);
+		renderer.translate(bullet.getPos().x, bullet.getPos().y, 0);
 
 		renderer.rotate(0, 0, 1, rotation);
 		renderer.circle(0, 0, bullet.getR(), 3);
@@ -69,7 +69,7 @@ public class Renderer {
 		renderer.begin(ShapeType.Circle);
 		renderer.setColor(Color.WHITE);
 		renderer.identity();
-		renderer.translate(bullet.getX(), bullet.getY(), 0);
+		renderer.translate(bullet.getPos().x, bullet.getPos().y, 0);
 		renderer.rotate(0, 0, 1, rotation);
 		renderer.circle(0, 0, bullet.getR(), 3);
 		renderer.end();

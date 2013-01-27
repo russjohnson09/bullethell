@@ -8,13 +8,7 @@ package path;
  */
 public interface Path {
 
-	float getX();
-
-	float getY();
-
-	void setX(float x);
-
-	void setY(float y);
+	Pos getPos();
 
 	void update(float delta);
 

@@ -12,10 +12,8 @@ public class Path01 implements Path {
 	protected float vX;
 	/* Velocity of y */
 	protected float vY;
-	/* x position */
-	protected float x = 0;
-	/* y position */
-	protected float y = 0;
+	/* position */
+	protected Pos pos = new Pos(0, 0);
 
 	public Path01(float vX, float vY) {
 		this.vX = vX;
@@ -23,27 +21,16 @@ public class Path01 implements Path {
 	}
 
 	public void update(float delta) {
-		x += vX * delta;
-		y += vY * delta;
-	}
-
-	public float getX() {
-		return x;
-	}
-
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public float getY() {
-		return y;
-	}
-
-	public void setY(float y) {
-		this.y = y;
+		pos.x += vX * delta;
+		pos.y += vY * delta;
 	}
 
 	public Path copy() {
 		return new Path01(vX, vY);
+	}
+
+	@Override
+	public Pos getPos() {
+		return pos;
 	}
 }

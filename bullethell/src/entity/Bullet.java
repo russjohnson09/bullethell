@@ -2,6 +2,7 @@ package entity;
 
 import path.Path;
 import path.Path01;
+import path.Pos;
 import render.Renderer;
 
 /**
@@ -20,11 +21,9 @@ public class Bullet implements Entity {
 	// number of bullets grazed (used in score)
 	protected static int numberGraze = 0;
 
-	protected float ox;
-	protected float oy;
+	protected Pos oPos;
 
-	protected float x;
-	protected float y;
+	protected Pos pos;
 	protected float r;
 	protected Path path;
 
@@ -33,16 +32,14 @@ public class Bullet implements Entity {
 	protected boolean isFin = false;
 
 	public Bullet(float x, float y, float r, Path path) {
-		this.x = ox = x;
-		this.y = oy = y;
+		pos = oPos = new Pos(x, y);
 		this.r = r;
 		this.path = path;
 
 	}
 
 	public Bullet() {
-		x = ox = 5;
-		y = oy = 40;
+		pos = oPos = new Pos(5, 40);
 		r = 1;
 		path = new Path01(0, -10);
 
@@ -52,15 +49,16 @@ public class Bullet implements Entity {
 	public void update(float delta) {
 		path.update(delta);
 
-		x = ox + path.getX();
-		y = oy + path.getY();
+		pos.x = oPos.y + path.getPos().x;
+		pos.y = oPos.y + path.getPos().y;
 
 	}
 
 	@Override
 	public boolean isFin() {
-		return isFin || (x > X_BOUND + X_MARGIN || y > Y_BOUND + Y_MARGIN)
-				|| (x < -X_MARGIN || y < -Y_MARGIN);
+		return isFin
+				|| (pos.x > X_BOUND + X_MARGIN || pos.y > Y_BOUND + Y_MARGIN)
+				|| (pos.x < -X_MARGIN || pos.y < -Y_MARGIN);
 	}
 
 	@Override
@@ -74,42 +72,6 @@ public class Bullet implements Entity {
 
 	public static void setNumberGraze(int numberGraze) {
 		Bullet.numberGraze = numberGraze;
-	}
-
-	public float getOx() {
-		return ox;
-	}
-
-	public void setOx(float ox) {
-		this.ox = ox;
-	}
-
-	public float getOy() {
-		return oy;
-	}
-
-	public void setOy(float oy) {
-		this.oy = oy;
-	}
-
-	@Override
-	public float getX() {
-		return x;
-	}
-
-	@Override
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	@Override
-	public float getY() {
-		return y;
-	}
-
-	@Override
-	public void setY(float y) {
-		this.y = y;
 	}
 
 	@Override
@@ -140,6 +102,11 @@ public class Bullet implements Entity {
 
 	@Override
 	public String toString() {
-		return String.format("x: %.2f\ty: %.2f\t", x, y);
+		return String.format("x: %.2f\ty: %.2f\t", pos.x, pos.y);
+	}
+
+	@Override
+	public Pos getPos() {
+		return pos;
 	}
 }

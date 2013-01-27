@@ -89,8 +89,9 @@ public class World {
 		for (Enemy enemy : enemies) {
 			for (int i = bullets.size - 1; i >= 0; i--) {
 				bullet = bullets.get(i);
-				if (isCollision(enemy.getX(), enemy.getY(), enemy.getR(),
-						bullet.getX(), bullet.getY(), bullet.getR())) {
+				if (isCollision(enemy.getPos().x, enemy.getPos().y,
+						enemy.getR(), bullet.getPos().x, bullet.getPos().y,
+						bullet.getR())) {
 					enemy.setHealth(enemy.getHealth() - 1);
 					bullets.removeIndex(i);
 				}
@@ -104,8 +105,9 @@ public class World {
 		Bullet bullet;
 		for (int i = bullets.size - 1; i >= 0; i--) {
 			bullet = bullets.get(i);
-			if (isCollision(player.getX(), player.getY(), player.getR(),
-					bullet.getX(), bullet.getY(), bullet.getR())) {
+			if (isCollision(player.getPos().x, player.getPos().y,
+					player.getR(), bullet.getPos().x, bullet.getPos().y,
+					bullet.getR())) {
 				if (player.getInvincible() < 0) {
 					player.setHealth(player.getHealth() - 1);
 				}

@@ -2,6 +2,7 @@ package entity;
 
 import path.Path;
 import path.Path01;
+import path.Pos;
 import render.Renderer;
 import states.PosNegZero;
 
@@ -27,8 +28,7 @@ public class Player implements Entity {
 	private boolean isSlow = false;
 	private boolean isFin = false;
 
-	private float x;
-	private float y;
+	private Pos pos;
 	private float r;
 	private float r2;
 	private int health;
@@ -38,8 +38,7 @@ public class Player implements Entity {
 	private float bulletSpeed = 50;
 
 	public Player() {
-		x = 5;
-		y = 2;
+		pos = new Pos(5, 2);
 		r = 0.2f;
 		r2 = 2;
 		SPEED = 20;
@@ -53,31 +52,21 @@ public class Player implements Entity {
 	}
 
 	@Override
-	public float getX() {
-		return x;
-	}
-
-	@Override
-	public float getY() {
-		return y;
-	}
-
-	@Override
 	public void update(float delta) {
 		float move = (isSlow) ? SPEED / 2 : SPEED;
 		invincible -= delta;
 		timeTilFire -= delta;
-		if (stateX == PosNegZero.POS && x < Renderer.CAMERA_WIDTH)
-			x += move * delta;
-		if (stateX == PosNegZero.NEG && x > 0)
-			x -= move * delta;
-		if (stateY == PosNegZero.POS && y < Renderer.CAMERA_HEIGHT)
-			y += move * delta;
-		if (stateY == PosNegZero.NEG && y > 0)
-			y -= move * delta;
+		if (stateX == PosNegZero.POS && pos.x < Renderer.CAMERA_WIDTH)
+			pos.x += move * delta;
+		if (stateX == PosNegZero.NEG && pos.x > 0)
+			pos.x -= move * delta;
+		if (stateY == PosNegZero.POS && pos.y < Renderer.CAMERA_HEIGHT)
+			pos.y += move * delta;
+		if (stateY == PosNegZero.NEG && pos.y > 0)
+			pos.y -= move * delta;
 		if (isFiring && timeTilFire < 0) {
 			Path path = new Path01(0, 40);
-			bullets.add(new Bullet(x, y, 0.5f, path));
+			bullets.add(new Bullet(pos.x, pos.y, 0.5f, path));
 			timeTilFire = DELAY;
 		}
 		if (health < 0) {
@@ -194,18 +183,8 @@ public class Player implements Entity {
 	}
 
 	@Override
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	@Override
-	public void setY(float y) {
-		this.y = y;
-	}
-
-	@Override
 	public String toString() {
-		return String.format("x: %.2f\ty: %.2f", x, y);
+		return String.format("x: %.2f\ty: %.2f", pos.x, pos.y);
 	}
 
 	@Override
@@ -217,6 +196,11 @@ public class Player implements Entity {
 	public void setFin(boolean b) {
 		isFin = b;
 
+	}
+
+	@Override
+	public Pos getPos() {
+		return pos;
 	}
 
 }
