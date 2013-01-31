@@ -1,17 +1,15 @@
 package utils;
 
-import path.Path;
-
 /**
  * Implementation of LinkedList
  * 
  * @author russ
  * 
  */
-public class LinkedList {
+public class LinkedList<D> {
 
-	Node head;
-	Node tail;
+	public Node<D> head;
+	public Node<D> tail;
 
 	public LinkedList() {
 		head = null;
@@ -22,15 +20,14 @@ public class LinkedList {
 	 * Updates the linked list returning an entity if it is time to spawn it and
 	 * null if we are doing nothing.
 	 */
-	public Path update(float delta) {
+	public D update(float delta) {
 		if (head != null) {
 			head.update(delta);
-			if (head.getDelay() < 0) {
+			if (head.delay < 0) {
 
-				Path path = head.getPath();
-				head = head.getNext();
-
-				return path;
+				D data = head.data;
+				head = head.next;
+				return data;
 			}
 		}
 
@@ -38,34 +35,26 @@ public class LinkedList {
 
 	}
 
-	public Node getCurrent() {
-		return head;
-	}
-
-	public void add(Node node) {
+	public void add(Node<D> node) {
 		if (head == null)
 			head = tail = node;
 		else {
-			tail.setNext(node);
+			tail.next = node;
 			tail = node;
 		}
 
 	}
 
-	public void add(LinkedList list) {
+	public void add(LinkedList<D> list) {
 		if (list != null && list.tail != null)
 			if (head == null) {
 				head = list.head;
 				tail = list.tail;
 			} else {
-				tail.setNext(list.head);
+				tail.next = list.head;
 				tail = list.tail;
 			}
 
-	}
-
-	public boolean isEmpty() {
-		return head == null;
 	}
 
 }

@@ -8,37 +8,20 @@ import path.Path;
  * @author russ
  * 
  */
-public class Node {
+public class Node<D> {
 
-	private Path path;
-	private Node next;
-	private float delay;
+	public D data;
+	public Node<D> next;
+	public float delay;
 
-	public Node(Path path, float delay) {
-		this.path = path;
+	public Node(D data, float delay) {
+		this.data = data;
 		this.delay = delay;
-	}
-
-	public Path getPath() {
-		return path;
-	}
-
-	public Node getNext() {
-		return next;
-	}
-
-	public void setNext(Node node) {
-		next = node;
-
 	}
 
 	public void update(float delta) {
 		delay -= delta;
 
-	}
-
-	public float getDelay() {
-		return delay;
 	}
 
 }

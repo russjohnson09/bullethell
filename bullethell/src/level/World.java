@@ -2,6 +2,7 @@ package level;
 
 import render.Renderer;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import entity.Bullet;
@@ -10,12 +11,13 @@ import entity.Player;
 
 public class World {
 
-	private Level level;
-	private Renderer renderer;
-	private Player player;
+	private static final float MARGIN = 5;
+	public Level level;
+	public Renderer renderer;
+	public Player player;
 
 	// used for spinning bullets
-	private float rotation = 0;
+	public float rotation = 0;
 
 	public World(Renderer renderer) {
 		level = new Level();
@@ -42,25 +44,31 @@ public class World {
 	}
 
 	private void updateEnemyBullets(float delta) {
-		Array<Bullet> bullets = Enemy.getBullets();
+		Array<Bullet> bullets = Enemy.bullets;
 		Bullet bullet;
 		for (int i = bullets.size - 1; i >= 0; i--) {
 			bullet = bullets.get(i);
 			bullet.update(delta);
-			if (bullet.isFin()) {
+			if (outOfBounds(bullet.pos)) {
 				bullets.removeIndex(i);
 			}
 		}
 
 	}
 
+	private boolean outOfBounds(Vector2 pos) {
+		return !(0 < pos.x + MARGIN && pos.x < Renderer.CAMERA_WIDTH + MARGIN
+				&& 0 < pos.y + MARGIN && pos.y < Renderer.CAMERA_HEIGHT
+				+ MARGIN);
+	}
+
 	private void updatePlayerBullets(float delta) {
-		Array<Bullet> bullets = player.getBullets();
+		Array<Bullet> bullets = player.bullets;
 		Bullet bullet;
 		for (int i = bullets.size - 1; i >= 0; i--) {
 			bullet = bullets.get(i);
 			bullet.update(delta);
-			if (bullet.isFin()) {
+			if (outOfBounds(bullet.pos)) {
 				bullets.removeIndex(i);
 			}
 		}
@@ -72,7 +80,7 @@ public class World {
 		for (int i = enemies.size - 1; i >= 0; i--) {
 			Enemy enemy = enemies.get(i);
 			enemy.update(delta);
-			if (enemy.isFin())
+			if (outOfBounds(enemy.pos))
 				enemies.removeIndex(i);
 		}
 
@@ -84,15 +92,13 @@ public class World {
 	 */
 	private void checkEnemyCollision() {
 		Array<Enemy> enemies = level.getEnemies();
-		Array<Bullet> bullets = player.getBullets();
+		Array<Bullet> bullets = player.bullets;
 		Bullet bullet;
 		for (Enemy enemy : enemies) {
 			for (int i = bullets.size - 1; i >= 0; i--) {
 				bullet = bullets.get(i);
-				if (isCollision(enemy.getPos().x, enemy.getPos().y,
-						enemy.getR(), bullet.getPos().x, bullet.getPos().y,
-						bullet.getR())) {
-					enemy.setHealth(enemy.getHealth() - 1);
+				if (isCollision(enemy.pos, enemy.r, bullet.pos, bullet.r)) {
+					enemy.health--;
 					bullets.removeIndex(i);
 				}
 			}
@@ -101,15 +107,13 @@ public class World {
 	}
 
 	private void checkPlayerCollision() {
-		Array<Bullet> bullets = Enemy.getBullets();
+		Array<Bullet> bullets = Enemy.bullets;
 		Bullet bullet;
 		for (int i = bullets.size - 1; i >= 0; i--) {
 			bullet = bullets.get(i);
-			if (isCollision(player.getPos().x, player.getPos().y,
-					player.getR(), bullet.getPos().x, bullet.getPos().y,
-					bullet.getR())) {
-				if (player.getInvincible() < 0) {
-					player.setHealth(player.getHealth() - 1);
+			if (isCollision(player.pos, player.R1, bullet.pos, bullet.r)) {
+				if (player.invincible < 0) {
+					player.health--;
 				}
 				bullets.removeIndex(i);
 			}
@@ -126,14 +130,14 @@ public class World {
 	}
 
 	private void renderEnemyBullet() {
-		for (Bullet bullet : Enemy.getBullets()) {
+		for (Bullet bullet : Enemy.bullets) {
 			renderer.enemyBullet(bullet, rotation);
 		}
 
 	}
 
 	private void renderPlayerBullet() {
-		for (Bullet bullet : player.getBullets()) {
+		for (Bullet bullet : player.bullets) {
 			renderer.playerBullet(bullet, rotation);
 		}
 
@@ -159,9 +163,9 @@ public class World {
 		this.player = player;
 	}
 
-	private boolean isCollision(float x, float y, float r, float x2, float y2,
-			float r2) {
-		return Math.pow(x - x2, 2) + Math.pow(y - y2, 2) < Math.pow(r + r2, 2);
+	private boolean isCollision(Vector2 pos1, float r, Vector2 pos2, float r2) {
+		return Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2) < Math
+				.pow(r + r2, 2);
 	}
 
 	@Override
@@ -170,7 +174,7 @@ public class World {
 		str += "Player: ";
 		str += player;
 		str += "Player bullets: ";
-		str += player.getBullets();
+		str += player.bullets;
 		str += "\nLevel: ";
 		str += level;
 		return str;

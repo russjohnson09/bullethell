@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import entity.Bullet;
-import entity.Entity;
+import entity.Enemy;
 import entity.Player;
 
 public class Renderer {
@@ -26,13 +26,14 @@ public class Renderer {
 
 	}
 
-	public void enemy(Entity e) {
+	public void enemy(Enemy enemy) {
 		renderer.begin(ShapeType.Circle);
 		renderer.setColor(Color.RED);
 		renderer.identity();
-		renderer.translate(e.getPos().x, e.getPos().y, 0);
 
-		renderer.circle(0, 0, e.getR(), 8);
+		renderer.translate(enemy.pos.x, enemy.pos.y, 0);
+
+		renderer.circle(0, 0, enemy.r, 8);
 
 		renderer.end();
 
@@ -42,10 +43,10 @@ public class Renderer {
 		renderer.begin(ShapeType.Circle);
 		renderer.setColor(Color.BLUE);
 		renderer.identity();
-		renderer.translate(player.getPos().x, player.getPos().y, 0);
+		renderer.translate(player.pos.x, player.pos.y, 0);
 
-		renderer.circle(0, 0, player.getR(), 6);
-		renderer.circle(0, 0, player.getR2(), 6);
+		renderer.circle(0, 0, player.R1, 6);
+		renderer.circle(0, 0, player.R2, 6);
 
 		renderer.end();
 
@@ -56,10 +57,10 @@ public class Renderer {
 		renderer.setColor(Color.RED);
 
 		renderer.identity();
-		renderer.translate(bullet.getPos().x, bullet.getPos().y, 0);
+		renderer.translate(bullet.pos.x, bullet.pos.y, 0);
 
 		renderer.rotate(0, 0, 1, rotation);
-		renderer.circle(0, 0, bullet.getR(), 3);
+		renderer.circle(0, 0, bullet.r, 3);
 
 		renderer.end();
 
@@ -69,9 +70,9 @@ public class Renderer {
 		renderer.begin(ShapeType.Circle);
 		renderer.setColor(Color.WHITE);
 		renderer.identity();
-		renderer.translate(bullet.getPos().x, bullet.getPos().y, 0);
+		renderer.translate(bullet.pos.x, bullet.pos.y, 0);
 		renderer.rotate(0, 0, 1, rotation);
-		renderer.circle(0, 0, bullet.getR(), 3);
+		renderer.circle(0, 0, bullet.r, 3);
 		renderer.end();
 	}
 }

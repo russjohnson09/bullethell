@@ -5,26 +5,26 @@ import java.util.Map;
 
 import level.World;
 import render.Renderer;
-import states.PosNegZero;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.math.Vector2;
 
 import entity.Player;
 
 public class GameScreen implements Screen, InputProcessor {
 
-	World world;
-	Renderer renderer;
+	private World world;
+	private Renderer renderer;
+
+	private Map<Key, Boolean> key = new HashMap<Key, Boolean>();
 
 	private enum Key {
 		LEFT, RIGHT, UP, DOWN, FIRE, BOMB, SLOW
 	}
-
-	private Map<Key, Boolean> key = new HashMap<Key, Boolean>();
 
 	@Override
 	public void render(float delta) {
@@ -35,45 +35,40 @@ public class GameScreen implements Screen, InputProcessor {
 
 		System.out.println(world);
 
-		updatePlayerState();
+		updatePlayerState(delta);
 
 	}
 
-	private void updatePlayerState() {
+	private void updatePlayerState(float delta) {
 		Player player = world.getPlayer();
+
+		if (key.get(Key.FIRE))
+			player.isFiring = true;
+		else
+			player.isFiring = false;
+
+		updatePosition(player, delta);
+
+	}
+
+	private void updatePosition(Player player, float delta) {
+		float movement = (key.get(Key.SLOW)) ? player.SPEED / 2 : player.SPEED;
+		Vector2 pos = player.pos;
 		if (key.get(Key.LEFT)) {
-			if (key.get(Key.RIGHT)) {
-				player.setStateX(PosNegZero.ZERO);
-			} else {
-				player.setStateX(PosNegZero.NEG);
-			}
-		} else if (key.get(Key.RIGHT)) {
-			player.setStateX(PosNegZero.POS);
-		} else {
-			player.setStateX(PosNegZero.ZERO);
+			pos.x -= movement * delta;
+		}
+		if (key.get(Key.RIGHT)) {
+			pos.x += movement * delta;
+
 		}
 
 		if (key.get(Key.DOWN)) {
-			if (key.get(Key.UP)) {
-				player.setStateY(PosNegZero.ZERO);
-			} else {
-				player.setStateY(PosNegZero.NEG);
-			}
-		} else if (key.get(Key.UP)) {
-			player.setStateY(PosNegZero.POS);
-		} else {
-			player.setStateY(PosNegZero.ZERO);
+			pos.y -= movement * delta;
 		}
+		if (key.get(Key.UP)) {
+			pos.y += movement * delta;
 
-		if (key.get(Key.SLOW))
-			player.setSlow(true);
-		else
-			player.setSlow(false);
-
-		if (key.get(Key.FIRE))
-			player.setFiring(true);
-		else
-			player.setFiring(false);
+		}
 
 	}
 

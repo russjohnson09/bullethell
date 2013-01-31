@@ -1,72 +1,53 @@
 package entity;
 
 import path.Path;
-import path.Path01;
-import path.Pos;
 import render.Renderer;
-import states.PosNegZero;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class Player implements Entity {
+public class Player {
 
-	public static final float X_BOUND = Renderer.CAMERA_WIDTH;
-	public static final float Y_BOUND = Renderer.CAMERA_HEIGHT;
+	public final int MAX_HEALTH = 10;
+	public final float SPEED = 40;
+	public final float DELAY = 0.1f;
 
-	private Array<Bullet> bullets = new Array<Bullet>();
+	// radius of hitbox
+	public final float R1 = 0.2f;
+	public final float R2 = 2;
 
-	private final int MAX_HEALTH;
-	private final float SPEED;
-	private final float DELAY = 0.1f;
-	private float timeTilFire;
-	private boolean isFiring = false;
+	public final float BULLET_R = 0.2f;
+	public final float BULLET_SPEED = 30;
 
-	private PosNegZero stateX;
-	private PosNegZero stateY;
+	// player bullets
+	public Array<Bullet> bullets = new Array<Bullet>();
 
-	private float invincible;
-	private boolean isSlow = false;
-	private boolean isFin = false;
+	public float timeTilFire = 0.2f;
+	public boolean isFiring = false;
 
-	private Pos pos;
-	private float r;
-	private float r2;
-	private int health;
-	private int lives;
+	// movement to left and right
+	public int x = 0;
+	public int y = 0;
 
-	private float bulletR = 0.2f;
-	private float bulletSpeed = 50;
+	// if positive player invincible
+	public float invincible = 3;
+
+	public Vector2 pos = new Vector2(5, 2);
+	public int health = MAX_HEALTH;
+	public int lives = 3;
 
 	public Player() {
-		pos = new Pos(5, 2);
-		r = 0.2f;
-		r2 = 2;
-		SPEED = 20;
-		stateX = PosNegZero.ZERO;
-		stateY = PosNegZero.ZERO;
-		timeTilFire = 0.2f;
-		health = MAX_HEALTH = 10;
-		invincible = 3;
-		lives = 3;
-
 	}
 
-	@Override
 	public void update(float delta) {
-		float move = (isSlow) ? SPEED / 2 : SPEED;
 		invincible -= delta;
 		timeTilFire -= delta;
-		if (stateX == PosNegZero.POS && pos.x < Renderer.CAMERA_WIDTH)
-			pos.x += move * delta;
-		if (stateX == PosNegZero.NEG && pos.x > 0)
-			pos.x -= move * delta;
-		if (stateY == PosNegZero.POS && pos.y < Renderer.CAMERA_HEIGHT)
-			pos.y += move * delta;
-		if (stateY == PosNegZero.NEG && pos.y > 0)
-			pos.y -= move * delta;
+
+		boundsCheck();
+
 		if (isFiring && timeTilFire < 0) {
-			Path path = new Path01(0, 40);
-			bullets.add(new Bullet(pos.x, pos.y, 0.5f, path));
+			bullets.add(new Bullet(pos.cpy(), 0.5f, new Path(new Vector2(0,
+					BULLET_SPEED))));
 			timeTilFire = DELAY;
 		}
 		if (health < 0) {
@@ -76,131 +57,20 @@ public class Player implements Entity {
 
 	}
 
-	public Array<Bullet> getBullets() {
-		return bullets;
-	}
+	private void boundsCheck() {
+		if (pos.x < 0)
+			pos.x = 0;
+		else if (pos.x > Renderer.CAMERA_WIDTH)
+			pos.x = Renderer.CAMERA_WIDTH;
+		if (pos.y < 0)
+			pos.y = 0;
+		else if (pos.y > Renderer.CAMERA_HEIGHT)
+			pos.y = Renderer.CAMERA_HEIGHT;
 
-	public void setBullets(Array<Bullet> bullets) {
-		this.bullets = bullets;
-	}
-
-	public float getTimeTilFire() {
-		return timeTilFire;
-	}
-
-	public void setTimeTilFire(float timeTilFire) {
-		this.timeTilFire = timeTilFire;
-	}
-
-	public boolean isFiring() {
-		return isFiring;
-	}
-
-	public void setFiring(boolean isFiring) {
-		this.isFiring = isFiring;
-	}
-
-	public PosNegZero getStateX() {
-		return stateX;
-	}
-
-	public void setStateX(PosNegZero stateX) {
-		this.stateX = stateX;
-	}
-
-	public PosNegZero getStateY() {
-		return stateY;
-	}
-
-	public void setStateY(PosNegZero stateY) {
-		this.stateY = stateY;
-	}
-
-	public float getInvincible() {
-		return invincible;
-	}
-
-	public void setInvincible(float invincible) {
-		this.invincible = invincible;
-	}
-
-	public boolean isSlow() {
-		return isSlow;
-	}
-
-	public void setSlow(boolean isSlow) {
-		this.isSlow = isSlow;
-	}
-
-	@Override
-	public float getR() {
-		return r;
-	}
-
-	@Override
-	public void setR(float r) {
-		this.r = r;
-	}
-
-	public float getR2() {
-		return r2;
-	}
-
-	public void setR2(float r2) {
-		this.r2 = r2;
-	}
-
-	public int getHealth() {
-		return health;
-	}
-
-	public void setHealth(int health) {
-		this.health = health;
-	}
-
-	public int getLives() {
-		return lives;
-	}
-
-	public void setLives(int lives) {
-		this.lives = lives;
-	}
-
-	public float getBulletR() {
-		return bulletR;
-	}
-
-	public void setBulletR(float bulletR) {
-		this.bulletR = bulletR;
-	}
-
-	public float getBulletSpeed() {
-		return bulletSpeed;
-	}
-
-	public void setBulletSpeed(float bulletSpeed) {
-		this.bulletSpeed = bulletSpeed;
 	}
 
 	@Override
 	public String toString() {
 		return String.format("x: %.2f\ty: %.2f", pos.x, pos.y);
 	}
-
-	@Override
-	public boolean isFin() {
-		return isFin;
-	}
-
-	@Override
-	public void setFin(boolean b) {
-		isFin = b;
-
-	}
-
-	@Override
-	public Pos getPos() {
-		return pos;
-	}
-
 }

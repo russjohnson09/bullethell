@@ -1,16 +1,30 @@
 package path;
 
+import com.badlogic.gdx.math.Vector2;
+
 import utils.LinkedList;
 import utils.Node;
 
-public class PathList implements Path {
+/*
+ * The PathList is used for more complex paths such as ones used by bosses.
+ */
+public class PathList {
 
-	private LinkedList pathList = new LinkedList();
-	protected Pos oPos = new Pos(0, 0);
-	protected Pos pos = new Pos(0, 0);
-	Path path = new Path01(0, 0);
+	// linked list of paths in path list
+	public LinkedList<Path> pathList = new LinkedList<Path>();
 
-	@Override
+	// original pos and current position
+	public Vector2 oPos, pos;
+
+	// current path being updated
+	Path path = new Path(new Vector2(0, 0));
+
+	public PathList(Vector2 v) {
+		oPos = new Vector2(0, 0);
+		pos = oPos.cpy();
+		pathList.add(new Node<Path>(new Path(v), 0));
+	}
+
 	public void update(float delta) {
 		Path p = pathList.update(delta);
 		if (p != null) {
@@ -19,18 +33,10 @@ public class PathList implements Path {
 			path = p;
 		}
 		path.update(delta);
-		pos.x = oPos.x + path.getPos().x;
-		pos.y = oPos.y + path.getPos().y;
 
-	}
+		pos.x = oPos.x + path.pos.x;
+		pos.y = oPos.y + path.pos.y;
 
-	public void add(Path path, float delay) {
-		pathList.add(new Node(path, delay));
-	}
-
-	@Override
-	public Pos getPos() {
-		return pos;
 	}
 
 }
