@@ -4,9 +4,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/russ/Dropbox/library/libgdx-0.9.6/docs/api/"/>
+			<attribute name="javadoc_location" value="file:/home/russ/Desktop/bullethell/bullethell/libs/docs/api/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/home/russ/Desktop/bullethell/bullethell/libs/easymock-3.1/easymock-3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
