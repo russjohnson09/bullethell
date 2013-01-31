@@ -1,6 +1,5 @@
 package entity;
 
-import path.Path;
 import path.PathList;
 import utils.LinkedList;
 

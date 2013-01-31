@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 public class Player {
 
 	public final int MAX_HEALTH = 10;
-	public final float SPEED = 40;
+	public final float SPEED = 28;
 	public final float DELAY = 0.1f;
 
 	// radius of hitbox
@@ -17,7 +17,7 @@ public class Player {
 	public final float R2 = 2;
 
 	public final float BULLET_R = 0.2f;
-	public final float BULLET_SPEED = 30;
+	public final float BULLET_SPEED = 40;
 
 	// player bullets
 	public Array<Bullet> bullets = new Array<Bullet>();
@@ -25,9 +25,9 @@ public class Player {
 	public float timeTilFire = 0.2f;
 	public boolean isFiring = false;
 
-	// movement to left and right
-	public int x = 0;
-	public int y = 0;
+	// velocity vector
+	public Vector2 v = new Vector2(0,0); 
+	public boolean slow = false;
 
 	// if positive player invincible
 	public float invincible = 3;
@@ -36,6 +36,7 @@ public class Player {
 	public int health = MAX_HEALTH;
 	public int lives = 3;
 
+
 	public Player() {
 	}
 
@@ -43,6 +44,10 @@ public class Player {
 		invincible -= delta;
 		timeTilFire -= delta;
 
+		float movement = (slow)? SPEED/2 : SPEED; 
+		pos.x += v.x * movement * delta;
+		pos.y += v.y * movement * delta;
+		
 		boundsCheck();
 
 		if (isFiring && timeTilFire < 0) {

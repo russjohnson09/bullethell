@@ -31,6 +31,22 @@ public class Level {
 				new Vector2(5, 0)), new LinkedList<Bullet>());
 
 		sakyun.pathlist.pathList.add(new Node<Path>(new Path(-5, 0), 1f));
+		
+		sakyun.pathlist.pathList.add(new Node<Path>(new Path(1, 0), 0.5f));
+		
+		for (int i = 0; i < 100; i++){
+			sakyun.pathlist.pathList.add(new Node<Path>(new Path(10, 0), 0.5f));
+			sakyun.pathlist.pathList.add(new Node<Path>(new Path(-10, 0), 0.5f));
+		}
+			
+		
+		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+		
+		for (int i = 0; i < 100; i++)
+			bullets.add(new Node<Bullet>(new Bullet(sakyun, 0.5f, new Path(new Vector2(0,
+					-5))),0.1f));
+		
+		sakyun.bulletScript = bullets;
 
 		enemyScript.add(new Node<Enemy>(sakyun, 1f));
 

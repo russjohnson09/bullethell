@@ -46,7 +46,8 @@ public class Bullet {
 		// set the location of the bullet to the entity that
 		// spawned it and set spawner to null
 		if (spawner != null) {
-			pos = oPos = spawner.pos;
+			pos = spawner.pos.cpy();
+			oPos = spawner.pos.cpy();
 			spawner = null;
 		}
 

@@ -19,12 +19,7 @@ public class GameScreen implements Screen, InputProcessor {
 
 	private World world;
 	private Renderer renderer;
-
-	private Map<Key, Boolean> key = new HashMap<Key, Boolean>();
-
-	private enum Key {
-		LEFT, RIGHT, UP, DOWN, FIRE, BOMB, SLOW
-	}
+	public float delta;
 
 	@Override
 	public void render(float delta) {
@@ -34,42 +29,7 @@ public class GameScreen implements Screen, InputProcessor {
 		world.update(delta);
 
 		System.out.println(world);
-
-		updatePlayerState(delta);
-
-	}
-
-	private void updatePlayerState(float delta) {
-		Player player = world.getPlayer();
-
-		if (key.get(Key.FIRE))
-			player.isFiring = true;
-		else
-			player.isFiring = false;
-
-		updatePosition(player, delta);
-
-	}
-
-	private void updatePosition(Player player, float delta) {
-		float movement = (key.get(Key.SLOW)) ? player.SPEED / 2 : player.SPEED;
-		Vector2 pos = player.pos;
-		if (key.get(Key.LEFT)) {
-			pos.x -= movement * delta;
-		}
-		if (key.get(Key.RIGHT)) {
-			pos.x += movement * delta;
-
-		}
-
-		if (key.get(Key.DOWN)) {
-			pos.y -= movement * delta;
-		}
-		if (key.get(Key.UP)) {
-			pos.y += movement * delta;
-
-		}
-
+		
 	}
 
 	@Override
@@ -83,14 +43,6 @@ public class GameScreen implements Screen, InputProcessor {
 		renderer = new Renderer();
 		world = new World(renderer);
 		Gdx.input.setInputProcessor(this);
-
-		key.put(Key.UP, false);
-		key.put(Key.DOWN, false);
-		key.put(Key.LEFT, false);
-		key.put(Key.RIGHT, false);
-		key.put(Key.FIRE, false);
-		key.put(Key.BOMB, false);
-		key.put(Key.SLOW, false);
 
 	}
 
@@ -123,39 +75,43 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.LEFT)
-			key.put(Key.LEFT, true);
-		if (keycode == Keys.RIGHT)
-			key.put(Key.RIGHT, true);
-		if (keycode == Keys.DOWN)
-			key.put(Key.DOWN, true);
-		if (keycode == Keys.UP)
-			key.put(Key.UP, true);
-		if (keycode == Keys.Z)
-			key.put(Key.FIRE, true);
+		Player player = world.player;
+		Vector2 v = player.v;
 		if (keycode == Keys.SHIFT_LEFT)
-			key.put(Key.SLOW, true);
-		if (keycode == Keys.SPACE)
-			key.put(Key.BOMB, true);
+			player.slow = true;
+		else if (keycode == Keys.Z)
+			player.isFiring = true;
+		else if (keycode == Keys.LEFT)
+			v.x = -1;
+		else if (keycode == Keys.RIGHT)
+			v.x = 1;
+		else if (keycode == Keys.DOWN)
+			v.y = -1;
+		else if (keycode == Keys.UP)
+			v.y = 1;
+		
 		return true;
+
+
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		if (keycode == Keys.LEFT)
-			key.put(Key.LEFT, false);
-		if (keycode == Keys.RIGHT)
-			key.put(Key.RIGHT, false);
-		if (keycode == Keys.DOWN)
-			key.put(Key.DOWN, false);
-		if (keycode == Keys.UP)
-			key.put(Key.UP, false);
-		if (keycode == Keys.Z)
-			key.put(Key.FIRE, false);
+		Player player = world.player;
+		Vector2 v = player.v;
 		if (keycode == Keys.SHIFT_LEFT)
-			key.put(Key.SLOW, false);
-		if (keycode == Keys.SPACE)
-			key.put(Key.BOMB, false);
+			player.slow = false;
+		else if (keycode == Keys.Z)
+			player.isFiring = false;
+		else if (keycode == Keys.LEFT)
+			v.x = (v.x == -1)? 0 : v.x;
+		else if (keycode == Keys.RIGHT)
+			v.x = (v.x == 1)? 0 : v.x;
+		else if (keycode == Keys.DOWN)
+			v.y = (v.y == -1)? 0 : v.y;
+		else if (keycode == Keys.UP)
+			v.y = (v.y == 1)? 0 : v.y;
+		
 		return true;
 	}
 
