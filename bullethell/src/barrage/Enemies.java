@@ -1,5 +1,6 @@
 package barrage;
 
+import path.Path01;
 import path.PathList;
 import utils.LinkedList;
 import utils.Node;
@@ -31,7 +32,8 @@ public class Enemies {
 			path.add(Paths.basic3(0, 0, -10, 0), 1.5f);
 		}
 
-		bullets.add(new Node(new Bullet(), 2));
+		bullets.add(new Node(new Bullet(shiki.pos.x, shiki.pos.y, 1,
+				new Path01(0, -5)), 3));
 
 		float j;
 

@@ -32,7 +32,7 @@ public class Enemy implements Entity {
 	protected float x;
 	protected float y;
 
-	public Pos pos;
+	public Pos pos = new Pos();
 
 	protected float r;
 	protected int health;
