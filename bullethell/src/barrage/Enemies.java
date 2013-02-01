@@ -1,7 +1,13 @@
 package barrage;
 
+import com.badlogic.gdx.math.Vector2;
+
+import path.Path;
 import path.PathList;
+import render.Renderer;
 import utils.LinkedList;
+import utils.Node;
+import entity.Bullet;
 import entity.Enemy;
 
 /**
@@ -11,38 +17,43 @@ import entity.Enemy;
  * 
  */
 public class Enemies {
-	//
-	// public static Enemy shiki() {
-	// PathList path = new PathList();
-	// LinkedList bullets = new LinkedList();
-	//
-	// Enemy shiki = new Enemy(3, 45, 1, 10, path, bullets);
-	//
-	// path.add(new Path01(0, -0.1f), 0);
-	//
-	// return shiki;
-	// //
-	// // path.add(Paths.basic3(3, 45, 12, 30), 0);
-	// // path.add(Paths.basic3(12, 30, 2, 30), 1f);
-	// // path.add(Paths.basic3(2, 30, 15, 40), 1f);
-	// // path.add(Paths.basic3(15, 40, 6, 35), 1f);
-	// //
-	// // for (int i = 0; i < 100; i++) {
-	// // path.add(Paths.basic3(0, 0, 10, 0), 1.5f);
-	// // path.add(Paths.basic3(0, 0, -10, 0), 1.5f);
-	// // }
-	// //
-	// // bullets.add(new Node(new Bullet(), 2));
-	// //
-	// // float j;
-	// //
-	// // for (int i = 0; i < 100; i++) {
-	// // j = (float) ((21 * Math.random()) + 2);
-	// // bullets.add(Barrage.raining(j, 2, -2, 2f));
-	// // }
-	// //
-	// // return shiki;
-	//
-	// }
+
+	/**
+	 * The doomBot goes across the screen at a freighting speed and leaves only
+	 * a small gap for safety.
+	 * 
+	 * @return
+	 */
+	public static Enemy doomBot(float y, boolean left) {
+
+		// for where to leave gap
+		int r = (int) (22 * Math.random() + 1);
+
+		Vector2 pos;
+
+		PathList path;
+
+		if (left) {
+			pos = new Vector2(-2, y);
+			path = new PathList(new Path(10, 0));
+		} else {
+			pos = new Vector2(Renderer.CAMERA_WIDTH + 2, y);
+			path = new PathList(new Path(-10, 0));
+		}
+
+		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+
+		Enemy e = new Enemy(pos, 2, 3, path, bullets);
+
+		for (int i = 0; i < 25; i++) {
+			if (i > r + 1 || i < r - 1) {
+				bullets.add(new Node<Bullet>(new Bullet(new Vector2(i, y),
+						0.5f, new Path(0, -5)), 0.1f));
+			}
+		}
+
+		return e;
+
+	}
 
 }

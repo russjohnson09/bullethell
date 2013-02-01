@@ -7,8 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class Player {
-	
-	public final float SPEED = 28;
+
+	public final float SPEED = 20;
 	public final float DELAY = 0.1f;
 
 	// radius of hitbox
@@ -25,7 +25,7 @@ public class Player {
 	public boolean isFiring = false;
 
 	// velocity vector
-	public Vector2 v = new Vector2(0,0); 
+	public Vector2 v = new Vector2(0, 0);
 	public boolean slow = false;
 
 	// if positive player invincible
@@ -35,7 +35,6 @@ public class Player {
 
 	public int lives = 3;
 
-
 	public Player() {
 	}
 
@@ -43,10 +42,10 @@ public class Player {
 		invincible -= delta;
 		timeTilFire -= delta;
 
-		float movement = (slow)? SPEED/3 : SPEED; 
+		float movement = (slow) ? SPEED / 3 : SPEED;
 		pos.x += v.x * movement * delta;
 		pos.y += v.y * movement * delta;
-		
+
 		boundsCheck();
 
 		if (isFiring && timeTilFire < 0) {

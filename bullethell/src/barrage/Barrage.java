@@ -1,9 +1,13 @@
 package barrage;
 
+import com.badlogic.gdx.math.Vector2;
+
+import path.Path;
 import render.Renderer;
 import utils.LinkedList;
 import utils.Node;
 import entity.Bullet;
+import entity.Enemy;
 
 /**
  * Contains convenience methods for various enemy types and bullets etc.
@@ -12,26 +16,38 @@ import entity.Bullet;
  * 
  */
 public class Barrage {
-	//
-	// /**
-	// * Fire bullets every delay seconds.
-	// *
-	// * @param i
-	// * @param j
-	// * @return
-	// */
-	// public static LinkedList fire(float delay, int numberOfBullets, float r,
-	// Path01 path) {
-	// LinkedList list = new LinkedList();
-	// Bullet b = new Bullet(0, 0, r, path.copy());
-	// list.add(new Node(b, 0));
-	//
-	// for (int i = 0; i < numberOfBullets - 1; i++) {
-	// b = new Bullet(0, 0, r, path.copy());
-	// list.add(new Node(b, delay));
-	// }
-	// return list;
-	// }
+
+	/**
+	 * Fire bullets every delay seconds downward at some speed.
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+	public static LinkedList<Bullet> fire(float delay, int numberOfBullets,
+			float r, float speed, Enemy spawner) {
+		LinkedList<Bullet> list = new LinkedList<Bullet>();
+		list.add(new Node<Bullet>(new Bullet(spawner, r, new Path(new Vector2(
+				0, -speed))), 0));
+
+		for (int i = 0; i < numberOfBullets - 1; i++) {
+			list.add(new Node<Bullet>(new Bullet(spawner, r, new Path(
+					new Vector2(0, -speed))), 0));
+		}
+		return list;
+	}
+
+	public static LinkedList<Bullet> wall(int y, int r) {
+		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+		for (int i = 0; i <= Renderer.CAMERA_WIDTH; i++) {
+			if (y + r < i || i < y - r) {
+				bullets.add(new Node<Bullet>(new Bullet(new Vector2(i, y),
+						0.5f, new Path(0, -5)), 0.1f));
+			}
+		}
+		return bullets;
+	}
+
 	//
 	// public static LinkedList shikiBarrage() {
 	// LinkedList list = new LinkedList();

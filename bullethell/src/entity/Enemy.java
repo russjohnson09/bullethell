@@ -1,6 +1,7 @@
 package entity;
 
 import path.PathList;
+import render.Renderer;
 import utils.LinkedList;
 
 import com.badlogic.gdx.math.Vector2;
@@ -27,8 +28,11 @@ public class Enemy {
 	public PathList pathlist;
 
 	public LinkedList<Bullet> bulletScript = new LinkedList<Bullet>();
-	
+
 	public boolean isBoss = false;
+
+	public Enemy() {
+	}
 
 	public Enemy(Vector2 pos, float r, int health, PathList pathlist,
 			LinkedList<Bullet> bulletScript) {
@@ -45,17 +49,24 @@ public class Enemy {
 		pos.x = oPos.x + pathlist.pos.x;
 		pos.y = oPos.y + pathlist.pos.y;
 
-		Bullet b = (Bullet) bulletScript.update(delta);
-		if (b != null) {
-			bullets.add(b);
-		}
-		// enemies can fire more than one bullet at a time
-		// bulletScript has negative numbers for this
-		b = (Bullet) bulletScript.update(0);
-		while (b != null) {
-			bullets.add(b);
+		if (inBounds()) {
+			Bullet b = (Bullet) bulletScript.update(delta);
+			if (b != null) {
+				bullets.add(b);
+			}
+			// enemies can fire more than one bullet at a time
+			// bulletScript has negative numbers for this
 			b = (Bullet) bulletScript.update(0);
+			while (b != null) {
+				bullets.add(b);
+				b = (Bullet) bulletScript.update(0);
+			}
 		}
+	}
+
+	private boolean inBounds() {
+		return 0 < pos.x && pos.x < Renderer.CAMERA_WIDTH && 0 < pos.y
+				&& pos.y < Renderer.CAMERA_HEIGHT;
 	}
 
 	@Override

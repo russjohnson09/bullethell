@@ -27,72 +27,72 @@ public class Level {
 	public Array<Enemy> enemies = new Array<Enemy>();
 
 	public Level() {
-		
-		Wave.wave1(enemyScript);
-		
-//		world1();
+
+		// Wave.wave1(enemyScript);
+
+		Wave.boss1(enemyScript);
+
+		// world1();
 
 	}
-
-
 
 	private void world1() {
 		Enemy teruyo = new Enemy(new Vector2(0, 30), 1, 50, new PathList(
 				new Vector2(5, 0)), new LinkedList<Bullet>());
-		
+
 		teruyo.isBoss = true;
 
-		teruyo.pathlist.pathList.add(new Node<Path>(new Path(-5, 0), 1f));
-		
-		teruyo.pathlist.pathList.add(new Node<Path>(new Path(1, 0), 0.5f));
-		
-		for (int i = 0; i < 100; i++){
-			teruyo.pathlist.pathList.add(new Node<Path>(new Path(10, 0), 0.5f));
-			teruyo.pathlist.pathList.add(new Node<Path>(new Path(-10, 0), 0.5f));
-		}
-		
-		LinkedList<Bullet> bullets = teruyo.bulletScript;
-		
+		teruyo.pathlist.pathlist.add(new Node<Path>(new Path(-5, 0), 1f));
+
+		teruyo.pathlist.pathlist.add(new Node<Path>(new Path(1, 0), 0.5f));
+
 		for (int i = 0; i < 100; i++) {
-			bullets.add(new Node<Bullet>(new Bullet(teruyo, 1, new Path(0,-5)),1));
-			bullets.add(new Node<Bullet>(new Bullet(teruyo, 1, new Path(2,-5)),0.5f));
+			teruyo.pathlist.pathlist.add(new Node<Path>(new Path(10, 0), 0.5f));
+			teruyo.pathlist.pathlist
+					.add(new Node<Path>(new Path(-10, 0), 0.5f));
 		}
 
-		
+		LinkedList<Bullet> bullets = teruyo.bulletScript;
+
+		for (int i = 0; i < 100; i++) {
+			bullets.add(new Node<Bullet>(
+					new Bullet(teruyo, 1, new Path(0, -5)), 1));
+			bullets.add(new Node<Bullet>(
+					new Bullet(teruyo, 1, new Path(2, -5)), 0.5f));
+		}
+
 		enemyScript.add(new Node<Enemy>(teruyo, 1f));
-		
-		
-		
+
 	}
-	
+
 	private void world2() {
 		Enemy sakyun = new Enemy(new Vector2(0, 30), 1, 5, new PathList(
 				new Vector2(5, 0)), new LinkedList<Bullet>());
-		
+
 		sakyun.isBoss = true;
 
-		sakyun.pathlist.pathList.add(new Node<Path>(new Path(-5, 0), 1f));
-		
-		sakyun.pathlist.pathList.add(new Node<Path>(new Path(1, 0), 0.5f));
-		
-		for (int i = 0; i < 100; i++){
-			sakyun.pathlist.pathList.add(new Node<Path>(new Path(10, 0), 0.5f));
-			sakyun.pathlist.pathList.add(new Node<Path>(new Path(-10, 0), 0.5f));
+		sakyun.pathlist.pathlist.add(new Node<Path>(new Path(-5, 0), 1f));
+
+		sakyun.pathlist.pathlist.add(new Node<Path>(new Path(1, 0), 0.5f));
+
+		for (int i = 0; i < 100; i++) {
+			sakyun.pathlist.pathlist.add(new Node<Path>(new Path(10, 0), 0.5f));
+			sakyun.pathlist.pathlist
+					.add(new Node<Path>(new Path(-10, 0), 0.5f));
 		}
-			
-		
+
 		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
-		
+
 		for (int i = 0; i < 100; i++)
-			bullets.add(new Node<Bullet>(new Bullet(sakyun, 0.5f, new Path(new Vector2(0,
-					-5))),0.1f));
-		
+			bullets.add(new Node<Bullet>(new Bullet(sakyun, 0.5f, new Path(
+					new Vector2(0, -5))), 0.1f));
+
 		sakyun.bulletScript = bullets;
 
 		enemyScript.add(new Node<Enemy>(sakyun, 1f));
 
 		enemyScript.add(new Node<Enemy>(new Enemy(new Vector2(0, 40), 1, 5,
-				new PathList(new Vector2(5, 0)), new LinkedList<Bullet>()), 1));		
+				new PathList(new Vector2(5, 0)), new LinkedList<Bullet>()), 1));
 	}
 
 	public void update(float delta) {

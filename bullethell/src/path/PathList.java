@@ -11,22 +11,28 @@ import utils.Node;
 public class PathList {
 
 	// linked list of paths in path list
-	public LinkedList<Path> pathList = new LinkedList<Path>();
+	public LinkedList<Path> pathlist = new LinkedList<Path>();
 
 	// original pos and current position
-	public Vector2 oPos, pos;
+	public Vector2 oPos = new Vector2(0, 0);
+	public Vector2 pos = new Vector2(0, 0);
 
 	// current path being updated
-	Path path = new Path(new Vector2(0, 0));
+	Path path;
 
 	public PathList(Vector2 v) {
-		oPos = new Vector2(0, 0);
-		pos = oPos.cpy();
-		pathList.add(new Node<Path>(new Path(v), 0));
+		pathlist.add(new Node<Path>(new Path(v), 0));
+	}
+
+	public PathList(Path path) {
+		pathlist.add(new Node<Path>(path, 0));
+	}
+
+	public PathList() {
 	}
 
 	public void update(float delta) {
-		Path p = pathList.update(delta);
+		Path p = pathlist.update(delta);
 		if (p != null) {
 			oPos.x = pos.x;
 			oPos.y = pos.y;
@@ -37,6 +43,10 @@ public class PathList {
 		pos.x = oPos.x + path.pos.x;
 		pos.y = oPos.y + path.pos.y;
 
+	}
+
+	public void add(Node<Path> node) {
+		pathlist.add(node);
 	}
 
 }

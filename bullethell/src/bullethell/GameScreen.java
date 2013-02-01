@@ -28,8 +28,6 @@ public class GameScreen implements Screen, InputProcessor {
 
 		world.update(delta);
 
-		System.out.println(world);
-		
 	}
 
 	@Override
@@ -89,9 +87,8 @@ public class GameScreen implements Screen, InputProcessor {
 			v.y = -1;
 		else if (keycode == Keys.UP)
 			v.y = 1;
-		
-		return true;
 
+		return true;
 
 	}
 
@@ -104,14 +101,14 @@ public class GameScreen implements Screen, InputProcessor {
 		else if (keycode == Keys.Z)
 			player.isFiring = false;
 		else if (keycode == Keys.LEFT)
-			v.x = (v.x == -1)? 0 : v.x;
+			v.x = (v.x == -1) ? 0 : v.x;
 		else if (keycode == Keys.RIGHT)
-			v.x = (v.x == 1)? 0 : v.x;
+			v.x = (v.x == 1) ? 0 : v.x;
 		else if (keycode == Keys.DOWN)
-			v.y = (v.y == -1)? 0 : v.y;
+			v.y = (v.y == -1) ? 0 : v.y;
 		else if (keycode == Keys.UP)
-			v.y = (v.y == 1)? 0 : v.y;
-		
+			v.y = (v.y == 1) ? 0 : v.y;
+
 		return true;
 	}
 

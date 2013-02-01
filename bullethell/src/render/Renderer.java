@@ -15,13 +15,16 @@ public class Renderer {
 
 	public static final float CAMERA_WIDTH = 24f;
 	public static final float CAMERA_HEIGHT = 42.7f;
-	
+
 	public float ppuX = 10;
 	public float ppuY = 10;
 
 	private OrthographicCamera cam;
 
 	ShapeRenderer renderer = new ShapeRenderer();
+
+	SpriteBatch spriteBatch = new SpriteBatch();
+	BitmapFont font = new BitmapFont();
 
 	public Renderer() {
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
@@ -80,27 +83,30 @@ public class Renderer {
 		renderer.circle(0, 0, bullet.r, 3);
 		renderer.end();
 	}
-	
-	public void drawScore(int graze, int kills, int lives) {
-		SpriteBatch spriteBatch = new SpriteBatch();
-		BitmapFont font = new BitmapFont();
+
+	public void drawScore(int graze, int kills, int lives, int fps) {
 		spriteBatch.begin();
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		font.setScale(0.8f);
-		font.draw(spriteBatch, "Graze: "+ graze, ppuX, (CAMERA_HEIGHT-2)*ppuY);
-		font.draw(spriteBatch, "Kills: "+ kills , ppuX, (CAMERA_HEIGHT-4)*ppuY);
-		font.draw(spriteBatch, "Lives: "+ lives , ppuX, (CAMERA_HEIGHT-6)*ppuY);
+		font.draw(spriteBatch, "Graze: " + graze, ppuX, (CAMERA_HEIGHT - 2)
+				* ppuY);
+		font.draw(spriteBatch, "Kills: " + kills, ppuX, (CAMERA_HEIGHT - 4)
+				* ppuY);
+		font.draw(spriteBatch, "Lives: " + lives, ppuX, (CAMERA_HEIGHT - 6)
+				* ppuY);
+
+		font.draw(spriteBatch, "FPS: " + fps, 18 * ppuX, (CAMERA_HEIGHT - 2)
+				* ppuY);
 		spriteBatch.end();
 	}
-	
+
 	public void drawEnemyHealth(int health) {
 		renderer.begin(ShapeType.FilledRectangle);
-		
+
 		renderer.identity();
-		renderer.filledRect(12-health/10f, 41, health/5f, 1);
-		
+		renderer.filledRect(12 - health / 10f, 41, health / 5f, 1);
+
 		renderer.end();
-		
-		
+
 	}
 }

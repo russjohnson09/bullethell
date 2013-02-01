@@ -15,12 +15,16 @@ public class World {
 	public Level level;
 	public Renderer renderer;
 	public Player player;
-	
+
+	public int fps;
+
 	int enemyKills = 0;
 
 	// used for spinning bullets
 	public float rotation = 0;
 	public int grazedBullets = 0;
+
+	public float delay = 1f;
 
 	public World(Renderer renderer) {
 		level = new Level();
@@ -33,6 +37,14 @@ public class World {
 	 * Update the entities within our world.
 	 */
 	public void update(float delta) {
+		delay -= delta;
+
+		// update fps every second
+		if (delay < 0) {
+			delay = 1f;
+			fps = (int) (1 / delta);
+		}
+
 		checkPlayerCollision();
 		checkEnemyCollision();
 		updateEnemies(delta);
@@ -125,10 +137,11 @@ public class World {
 				}
 				bullets.removeIndex(i);
 			}
-			
-			if (!bullet.isGrazed && isCollision(player.pos, player.R2, bullet.pos, bullet.r)){
+
+			if (!bullet.isGrazed
+					&& isCollision(player.pos, player.R2, bullet.pos, bullet.r)) {
 				bullet.isGrazed = true;
-				grazedBullets ++;
+				grazedBullets++;
 			}
 		}
 
@@ -139,9 +152,7 @@ public class World {
 		renderEnemy();
 		renderPlayerBullet();
 		renderEnemyBullet();
-		
-		
-		renderer.drawScore(grazedBullets, enemyKills, player.lives);
+		renderer.drawScore(grazedBullets, enemyKills, player.lives, fps);
 
 	}
 
@@ -185,8 +196,7 @@ public class World {
 		return Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2) < Math
 				.pow(r + r2, 2);
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		String str = "";
@@ -196,16 +206,16 @@ public class World {
 		return str;
 	}
 
-//	@Override
-//	public String toString() {
-//		String str = "";
-//		str += "Player: ";
-//		str += player;
-//		str += "Player bullets: ";
-//		str += player.bullets;
-//		str += "\nLevel: ";
-//		str += level;
-//		return str;
-//	}
+	// @Override
+	// public String toString() {
+	// String str = "";
+	// str += "Player: ";
+	// str += player;
+	// str += "Player bullets: ";
+	// str += player.bullets;
+	// str += "\nLevel: ";
+	// str += level;
+	// return str;
+	// }
 
 }
