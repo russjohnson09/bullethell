@@ -30,6 +30,8 @@ public class Level {
 	public boolean isFin = false;
 
 	public Enemy boss;
+	public Array<Enemy> bosses = new Array<Enemy>();
+	public int bossNumber = 0;
 
 	World world;
 
@@ -42,6 +44,10 @@ public class Level {
 		boss = Enemies.boss1();
 
 		enemyScript.add(new Node<Enemy>(boss, 0));
+
+		bosses.add(Enemies.boss2(world));
+
+		bosses.add(Enemies.boss3(world.player));
 
 		// world1();
 
@@ -113,8 +119,9 @@ public class Level {
 		}
 
 		if (boss.health < 0) {
-			boss = Enemies.boss2(world);
-			enemyScript.add(new Node<Enemy>(boss, 5));
+			boss = bosses.get(bossNumber);
+			enemyScript.add(new Node<Enemy>(boss, 1));
+			bossNumber++;
 		}
 
 	}

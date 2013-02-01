@@ -11,6 +11,7 @@ import utils.LinkedList;
 import utils.Node;
 import entity.Bullet;
 import entity.Enemy;
+import entity.Player;
 
 /**
  * Static methods and constants for different enemy types.
@@ -86,6 +87,20 @@ public class Enemies {
 		Enemy e = new Enemy(new Vector2(12, 45), 1, 100, path, bullets);
 
 		bullets.add(Barrage.boss2(e, world.player));
+
+		e.isBoss = true;
+
+		return e;
+	}
+
+	public static Enemy boss3(Player player) {
+		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+
+		PathList path = Paths.boss3();
+
+		Enemy e = new Enemy(new Vector2(12, 45), 1, 100, path, bullets);
+
+		bullets.add(Barrage.boss3(e, player));
 
 		e.isBoss = true;
 

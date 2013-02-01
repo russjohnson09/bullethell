@@ -49,6 +49,20 @@ public class Paths {
 		return basic(v.x, v.y, speed);
 	}
 
+	public static PathList boss3() {
+		// descending onto screen
+		PathList path = new PathList(new Path(0, -10));
+
+		path.add(new Node<Path>(new Path(0, 0), 2));
+
+		return path;
+	}
+
+	public static Path dir(float i, float speed) {
+		return new Path(new Vector2((float) (speed * Math.cos(i)),
+				(float) (speed * Math.sin(i))));
+	}
+
 	//
 	// public static Path01 basic2(float x1, float y1, float x2, float y2,
 	// float speed) {

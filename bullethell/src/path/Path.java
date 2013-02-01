@@ -16,6 +16,7 @@ public class Path {
 	public Vector2 pos = new Vector2(0f, 0f);
 
 	public Path() {
+		v = new Vector2(0, 0);
 	}
 
 	public Path(Vector2 v) {

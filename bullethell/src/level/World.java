@@ -27,9 +27,9 @@ public class World {
 	public float delay = 1f;
 
 	public World(Renderer renderer) {
+		player = new Player();
 		level = new Level(this);
 		this.renderer = renderer;
-		player = new Player();
 
 	}
 

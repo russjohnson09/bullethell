@@ -95,6 +95,36 @@ public class Barrage {
 		return bullets;
 	}
 
+	public static LinkedList<Bullet> boss3(Enemy e, Player p) {
+		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+		Bullet b;
+
+		bullets.add(new Node<Bullet>(new Bullet(new Vector2(-100, -100), 0,
+				new Path()), 1f));
+
+		for (int i = 0; i < 10000; i++) {
+
+			float speed = 10f;
+			b = new Bullet(e, 0.5f, Paths.dir(
+					(float) (((i % 360)) * (Math.PI / 180)), speed));
+			bullets.add(new Node<Bullet>(b, 0.01f));
+
+			b = new Bullet(e, 0.5f, Paths.dir(
+					(float) ((((i + 180) % 360)) * (Math.PI / 180)), speed));
+			bullets.add(new Node<Bullet>(b, 0.01f));
+
+			if (i % 50 == 0) {
+				b = new Bullet(e, 0.5f, null);
+				b.target = p;
+				b.speed = 50f;
+				bullets.add(new Node<Bullet>(b, -1));
+			}
+
+		}
+
+		return bullets;
+	}
+
 	//
 	// public static LinkedList shikiBarrage() {
 	// LinkedList list = new LinkedList();
