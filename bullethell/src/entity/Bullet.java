@@ -56,7 +56,9 @@ public class Bullet {
 		}
 
 		if (target != null) {
-			path = Paths.basic2(target.pos.cpy().sub(pos), speed);
+			path = Paths.basic(target.pos.x - pos.x, target.pos.y - pos.y,
+					speed);
+			target = null;
 		}
 
 		path.update(delta);

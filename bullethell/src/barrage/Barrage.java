@@ -88,7 +88,7 @@ public class Barrage {
 		for (int i = 0; i < 1000; i++) {
 			Bullet seeking = new Bullet(e, 0.5f, null);
 			seeking.target = player;
-			seeking.speed = 100f;
+			seeking.speed = 10f;
 			bullets.add(new Node<Bullet>(seeking, 0.1f));
 		}
 
