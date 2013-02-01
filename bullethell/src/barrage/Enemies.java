@@ -1,5 +1,7 @@
 package barrage;
 
+import level.World;
+
 import com.badlogic.gdx.math.Vector2;
 
 import path.Path;
@@ -54,6 +56,40 @@ public class Enemies {
 
 		return e;
 
+	}
+
+	/**
+	 * Boss 1 uses mainly wall bullets.
+	 * 
+	 * @return
+	 */
+	public static Enemy boss1() {
+		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+
+		PathList path = Paths.boss1();
+
+		Enemy e = new Enemy(new Vector2(12, 45), 1, 100, path, bullets);
+
+		bullets.add(Barrage.boss1(e));
+
+		e.isBoss = true;
+
+		return e;
+
+	}
+
+	public static Enemy boss2(World world) {
+		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+
+		PathList path = Paths.boss1();
+
+		Enemy e = new Enemy(new Vector2(12, 45), 1, 100, path, bullets);
+
+		bullets.add(Barrage.boss2(e, world.player));
+
+		e.isBoss = true;
+
+		return e;
 	}
 
 }

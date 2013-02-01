@@ -1,5 +1,7 @@
 package entity;
 
+import barrage.Paths;
+
 import com.badlogic.gdx.math.Vector2;
 
 import path.Path;
@@ -18,18 +20,20 @@ public class Bullet {
 	public Vector2 oPos, pos;
 
 	// enemy that spawned bullet
-	public Enemy spawner;
+	public Enemy spawner = null;
 	public float r;
 	public Path path;
 
 	public boolean isGrazed = false;
+
+	public Player target = null;
+	public float speed = 0;
 
 	public Bullet(Vector2 pos, float r, Path path) {
 		this.pos = pos.cpy();
 		oPos = pos.cpy();
 		this.r = r;
 		this.path = path;
-		spawner = null;
 
 	}
 
@@ -49,6 +53,10 @@ public class Bullet {
 			pos = spawner.pos.cpy();
 			oPos = spawner.pos.cpy();
 			spawner = null;
+		}
+
+		if (target != null) {
+			path = Paths.basic2(target.pos.cpy().sub(pos), speed);
 		}
 
 		path.update(delta);

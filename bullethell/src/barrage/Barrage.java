@@ -8,6 +8,7 @@ import utils.LinkedList;
 import utils.Node;
 import entity.Bullet;
 import entity.Enemy;
+import entity.Player;
 
 /**
  * Contains convenience methods for various enemy types and bullets etc.
@@ -37,14 +38,60 @@ public class Barrage {
 		return list;
 	}
 
-	public static LinkedList<Bullet> wall(int y, int r) {
+	/**
+	 * 
+	 * @param x
+	 *            where the gap is
+	 * @param r
+	 *            radius of gap
+	 * @return
+	 */
+	public static LinkedList<Bullet> wall(int x, int r, float speed) {
 		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
 		for (int i = 0; i <= Renderer.CAMERA_WIDTH; i++) {
-			if (y + r < i || i < y - r) {
-				bullets.add(new Node<Bullet>(new Bullet(new Vector2(i, y),
-						0.5f, new Path(0, -5)), 0.1f));
+			if (x + r < i || i < x - r) {
+				bullets.add(new Node<Bullet>(new Bullet(new Vector2(i,
+						Renderer.CAMERA_HEIGHT), 0.5f, new Path(0, -speed)), -1));
 			}
 		}
+		return bullets;
+	}
+
+	public static LinkedList<Bullet> boss1(Enemy e) {
+		int random;
+		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+
+		for (int i = 0; i < 100; i++) {
+
+			// random integer 2-21
+			random = (int) (Math.random() * 20 + 2);
+			bullets.add(wall(random, 1, 2));
+
+			// null bullet
+			bullets.add(new Node<Bullet>(new Bullet(new Vector2(-100, -100), 0,
+					new Path(0, 0)), 3));
+		}
+
+		return bullets;
+	}
+
+	/**
+	 * Barrage of seeking bullets.
+	 * 
+	 * @param e
+	 * @param player
+	 * @return
+	 */
+	public static LinkedList<Bullet> boss2(Enemy e, Player player) {
+		LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+
+		for (int i = 0; i < 1000; i++) {
+			Bullet seeking = new Bullet(e, 0.5f, null);
+			seeking.target = player;
+			seeking.speed = 100f;
+			bullets.add(new Node<Bullet>(seeking, 0.1f));
+		}
+
 		return bullets;
 	}
 

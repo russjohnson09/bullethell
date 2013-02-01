@@ -5,6 +5,7 @@ import path.PathList;
 import utils.LinkedList;
 import utils.Node;
 
+import barrage.Enemies;
 import barrage.Wave;
 
 import com.badlogic.gdx.math.Vector2;
@@ -26,11 +27,21 @@ public class Level {
 	// Array of active enemies
 	public Array<Enemy> enemies = new Array<Enemy>();
 
-	public Level() {
+	public boolean isFin = false;
+
+	public Enemy boss;
+
+	World world;
+
+	public Level(World world) {
+
+		this.world = world;
 
 		// Wave.wave1(enemyScript);
 
-		Wave.boss1(enemyScript);
+		boss = Enemies.boss1();
+
+		enemyScript.add(new Node<Enemy>(boss, 0));
 
 		// world1();
 
@@ -99,6 +110,11 @@ public class Level {
 		Enemy enemy = (Enemy) enemyScript.update(delta);
 		if (enemy != null) {
 			enemies.add(enemy);
+		}
+
+		if (boss.health < 0) {
+			boss = Enemies.boss2(world);
+			enemyScript.add(new Node<Enemy>(boss, 5));
 		}
 
 	}

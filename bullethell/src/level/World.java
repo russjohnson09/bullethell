@@ -27,7 +27,7 @@ public class World {
 	public float delay = 1f;
 
 	public World(Renderer renderer) {
-		level = new Level();
+		level = new Level(this);
 		this.renderer = renderer;
 		player = new Player();
 
@@ -37,6 +37,9 @@ public class World {
 	 * Update the entities within our world.
 	 */
 	public void update(float delta) {
+		if (level.isFin) {
+		}
+
 		delay -= delta;
 
 		// update fps every second
@@ -117,7 +120,9 @@ public class World {
 			for (int i = bullets.size - 1; i >= 0; i--) {
 				bullet = bullets.get(i);
 				if (isCollision(enemy.pos, enemy.r, bullet.pos, bullet.r)) {
-					enemy.health--;
+					// TODO change to nonkiller bullets
+					// enemy.health--;
+					enemy.health -= 100000;
 					bullets.removeIndex(i);
 				}
 			}
