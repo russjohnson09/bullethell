@@ -74,4 +74,14 @@ public class Wave {
 		enemyScript.add(new Node<Enemy>(teruyo, 1f));
 
 	}
+
+	/**
+	 * An invader type wave.
+	 * 
+	 * @param enemyScript
+	 */
+	public static void invaders(LinkedList<Enemy> enemyScript) {
+		// TODO Auto-generated method stub
+
+	}
 }
