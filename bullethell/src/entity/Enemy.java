@@ -17,7 +17,6 @@ public class Enemy {
 
 	// Enemy array of bullets
 	public static Array<Bullet> bullets = new Array<Bullet>();
-	public static int kills = 0;
 
 	// the original position of the enemy and current position
 	public Vector2 oPos, pos;
@@ -28,6 +27,8 @@ public class Enemy {
 	public PathList pathlist;
 
 	public LinkedList<Bullet> bulletScript = new LinkedList<Bullet>();
+	
+	public boolean isBoss = false;
 
 	public Enemy(Vector2 pos, float r, int health, PathList pathlist,
 			LinkedList<Bullet> bulletScript) {

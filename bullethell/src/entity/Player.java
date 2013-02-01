@@ -7,8 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class Player {
-
-	public final int MAX_HEALTH = 10;
+	
 	public final float SPEED = 28;
 	public final float DELAY = 0.1f;
 
@@ -33,7 +32,7 @@ public class Player {
 	public float invincible = 3;
 
 	public Vector2 pos = new Vector2(5, 2);
-	public int health = MAX_HEALTH;
+
 	public int lives = 3;
 
 
@@ -44,7 +43,7 @@ public class Player {
 		invincible -= delta;
 		timeTilFire -= delta;
 
-		float movement = (slow)? SPEED/2 : SPEED; 
+		float movement = (slow)? SPEED/3 : SPEED; 
 		pos.x += v.x * movement * delta;
 		pos.y += v.y * movement * delta;
 		
@@ -54,10 +53,6 @@ public class Player {
 			bullets.add(new Bullet(pos.cpy(), 0.5f, new Path(new Vector2(0,
 					BULLET_SPEED))));
 			timeTilFire = DELAY;
-		}
-		if (health < 0) {
-			health = MAX_HEALTH;
-			lives--;
 		}
 
 	}

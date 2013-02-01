@@ -15,9 +15,12 @@ public class World {
 	public Level level;
 	public Renderer renderer;
 	public Player player;
+	
+	int enemyKills = 0;
 
 	// used for spinning bullets
 	public float rotation = 0;
+	public int grazedBullets = 0;
 
 	public World(Renderer renderer) {
 		level = new Level();
@@ -80,6 +83,10 @@ public class World {
 		for (int i = enemies.size - 1; i >= 0; i--) {
 			Enemy enemy = enemies.get(i);
 			enemy.update(delta);
+			if (enemy.health < 0) {
+				enemyKills++;
+				enemies.removeIndex(i);
+			}
 			if (outOfBounds(enemy.pos))
 				enemies.removeIndex(i);
 		}
@@ -113,9 +120,15 @@ public class World {
 			bullet = bullets.get(i);
 			if (isCollision(player.pos, player.R1, bullet.pos, bullet.r)) {
 				if (player.invincible < 0) {
-					player.health--;
+					player.lives--;
+					player.invincible = 5f;
 				}
 				bullets.removeIndex(i);
+			}
+			
+			if (!bullet.isGrazed && isCollision(player.pos, player.R2, bullet.pos, bullet.r)){
+				bullet.isGrazed = true;
+				grazedBullets ++;
 			}
 		}
 
@@ -126,6 +139,9 @@ public class World {
 		renderEnemy();
 		renderPlayerBullet();
 		renderEnemyBullet();
+		
+		
+		renderer.drawScore(grazedBullets, enemyKills, player.lives);
 
 	}
 
@@ -146,6 +162,8 @@ public class World {
 	private void renderEnemy() {
 		for (Enemy enemy : level.getEnemies()) {
 			renderer.enemy(enemy);
+			if (enemy.isBoss)
+				renderer.drawEnemyHealth(enemy.health);
 		}
 
 	}
@@ -167,17 +185,27 @@ public class World {
 		return Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2) < Math
 				.pow(r + r2, 2);
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		String str = "";
-		str += "Player: ";
-		str += player;
-		str += "Player bullets: ";
-		str += player.bullets;
-		str += "\nLevel: ";
-		str += level;
+		str += enemyKills + "\n";
+		str += grazedBullets + "\n";
+		str += player.lives + "\n";
 		return str;
 	}
+
+//	@Override
+//	public String toString() {
+//		String str = "";
+//		str += "Player: ";
+//		str += player;
+//		str += "Player bullets: ";
+//		str += player.bullets;
+//		str += "\nLevel: ";
+//		str += level;
+//		return str;
+//	}
 
 }

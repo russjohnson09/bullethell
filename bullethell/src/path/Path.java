@@ -12,7 +12,7 @@ public class Path {
 
 	/* Velocity of vector */
 	public Vector2 v;
-	/* position vertor */
+	/* position vector */
 	public Vector2 pos = new Vector2(0f, 0f);
 
 	public Path() {

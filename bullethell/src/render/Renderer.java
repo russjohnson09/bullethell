@@ -2,6 +2,8 @@ package render;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
@@ -13,6 +15,9 @@ public class Renderer {
 
 	public static final float CAMERA_WIDTH = 24f;
 	public static final float CAMERA_HEIGHT = 42.7f;
+	
+	public float ppuX = 10;
+	public float ppuY = 10;
 
 	private OrthographicCamera cam;
 
@@ -74,5 +79,28 @@ public class Renderer {
 		renderer.rotate(0, 0, 1, rotation);
 		renderer.circle(0, 0, bullet.r, 3);
 		renderer.end();
+	}
+	
+	public void drawScore(int graze, int kills, int lives) {
+		SpriteBatch spriteBatch = new SpriteBatch();
+		BitmapFont font = new BitmapFont();
+		spriteBatch.begin();
+		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		font.setScale(0.8f);
+		font.draw(spriteBatch, "Graze: "+ graze, ppuX, (CAMERA_HEIGHT-2)*ppuY);
+		font.draw(spriteBatch, "Kills: "+ kills , ppuX, (CAMERA_HEIGHT-4)*ppuY);
+		font.draw(spriteBatch, "Lives: "+ lives , ppuX, (CAMERA_HEIGHT-6)*ppuY);
+		spriteBatch.end();
+	}
+	
+	public void drawEnemyHealth(int health) {
+		renderer.begin(ShapeType.FilledRectangle);
+		
+		renderer.identity();
+		renderer.filledRect(12-health/10f, 41, health/5f, 1);
+		
+		renderer.end();
+		
+		
 	}
 }
