@@ -6,7 +6,6 @@ import utils.LinkedList;
 import utils.Node;
 
 import barrage.Enemies;
-import barrage.Wave;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -33,7 +32,9 @@ public class Level {
 	public Array<Enemy> bosses = new Array<Enemy>();
 	public int bossNumber = 0;
 
-	World world;
+	public World world;
+	
+	public boolean win = false;
 
 	public Level(World world) {
 
@@ -119,9 +120,19 @@ public class Level {
 		}
 
 		if (boss.health < 0) {
-			boss = bosses.get(bossNumber);
-			enemyScript.add(new Node<Enemy>(boss, 1));
-			bossNumber++;
+			//TODO effect for erasing bullets
+			//erase bullets
+			Enemy.bullets = new Array<Bullet>();
+			
+			//go to next boss;
+			if (bossNumber < bosses.size){
+				boss = bosses.get(bossNumber);
+				enemyScript.add(new Node<Enemy>(boss, 1));
+				bossNumber++;
+			}
+			else
+				win = true;
+
 		}
 
 	}

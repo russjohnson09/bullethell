@@ -18,13 +18,16 @@ public class World {
 
 	public int fps;
 
-	int enemyKills = 0;
+	public int enemyKills = 0;
 
 	// used for spinning bullets
 	public float rotation = 0;
 	public int grazedBullets = 0;
 
 	public float delay = 1f;
+	
+	public boolean win = false;
+	public boolean lose = false;
 
 	public World(Renderer renderer) {
 		player = new Player();
@@ -37,7 +40,9 @@ public class World {
 	 * Update the entities within our world.
 	 */
 	public void update(float delta) {
-		if (level.isFin) {
+		if (level.win) {
+			win = true;
+			return;
 		}
 
 		delay -= delta;
@@ -138,7 +143,11 @@ public class World {
 			if (isCollision(player.pos, player.R1, bullet.pos, bullet.r)) {
 				if (player.invincible < 0) {
 					player.lives--;
-					player.invincible = 5f;
+					if (player.lives < 0) {
+						lose = true;
+						return;
+					}
+					player.invincible = 1f;
 				}
 				bullets.removeIndex(i);
 			}

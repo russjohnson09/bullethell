@@ -3,6 +3,7 @@ package entity;
 import barrage.Paths;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 import path.Path;
 
@@ -28,6 +29,9 @@ public class Bullet {
 
 	public Player target = null;
 	public float speed = 0;
+	
+	// array of bullets
+	public static Array<Bullet> bullets = new Array<Bullet>();
 
 	public Bullet(Vector2 pos, float r, Path path) {
 		this.pos = pos.cpy();
@@ -65,6 +69,7 @@ public class Bullet {
 
 		pos.x = oPos.x + path.pos.x;
 		pos.y = oPos.y + path.pos.y;
+		
 
 	}
 

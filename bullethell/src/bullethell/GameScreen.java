@@ -20,27 +20,44 @@ public class GameScreen implements Screen, InputProcessor {
 	private World world;
 	private Renderer renderer;
 	public float delta;
+	
+	public boolean fin = false;
+	
+	
+	@Override
+	public void show() {
+		renderer = new Renderer();
+		world = new World(renderer);
+		Gdx.input.setInputProcessor(this);
+
+	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		world.update(delta);
+		if (!fin) {
+			Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+			Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+			
+			if (world.win) {
+				renderer.win(world);
+				fin = true;
+				return;
+			}
+			if (world.lose) {
+				renderer.lose(world);
+				fin = true;
+				return;
+			}
+			
+			world.update(delta);
+			
+		}
 
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		// TODO
-
-	}
-
-	@Override
-	public void show() {
-		renderer = new Renderer();
-		world = new World(renderer);
-		Gdx.input.setInputProcessor(this);
 
 	}
 

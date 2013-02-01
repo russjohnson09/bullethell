@@ -1,5 +1,7 @@
 package render;
 
+import level.World;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -108,5 +110,32 @@ public class Renderer {
 
 		renderer.end();
 
+	}
+
+	public void win(World world) {
+		spriteBatch.begin();
+		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		font.setScale(3f);
+		font.draw(spriteBatch, "You win!", ppuX * 3, 21 * ppuY);
+		font.draw(spriteBatch, "Graze: " + world.grazedBullets, ppuX, (CAMERA_HEIGHT - 2)
+				* ppuY);
+		font.draw(spriteBatch, "Kills: " + world.enemyKills, ppuX, (CAMERA_HEIGHT - 6)
+				* ppuY);
+		spriteBatch.end();
+		
+	}
+
+	public void lose(World world) {
+		spriteBatch.begin();
+		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		font.setScale(3f);
+		font.draw(spriteBatch, "You lose!", ppuX * 3, 21 * ppuY);
+		font.draw(spriteBatch, "Graze: " + world.grazedBullets, ppuX, (CAMERA_HEIGHT - 2)
+				* ppuY);
+		font.draw(spriteBatch, "Kills: " + world.enemyKills, ppuX, (CAMERA_HEIGHT - 6)
+				* ppuY);
+		
+		spriteBatch.end();
+		
 	}
 }
